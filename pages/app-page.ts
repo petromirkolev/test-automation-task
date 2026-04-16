@@ -10,7 +10,7 @@ export class AppPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.pageTitle = this.page.locator('h1[data-e2e="title"]');
+    this.pageTitle = page.getByRole('heading', { level: 1 });
     this.emailMenu = this.page
       .getByRole('listitem')
       .filter({ hasText: 'Email' });
