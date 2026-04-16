@@ -10,6 +10,7 @@ export default defineConfig({
   use: {
     baseURL: 'https://sqqadevs.com/',
     headless: true,
+    testIdAttribute: 'data-e2e',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
