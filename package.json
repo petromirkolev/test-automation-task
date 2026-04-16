@@ -1,7 +1,7 @@
 {
   "name": "test-automation-task",
   "version": "1.0.0",
-  "description": "",
+  "description": "Demo web application test automation task",
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
