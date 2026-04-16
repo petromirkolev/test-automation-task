@@ -4,12 +4,12 @@ import { token } from '../test-data/token';
 test.describe('Application page', () => {
   test('Access is allowed with valid demoToken', async ({ appPage }) => {
     await appPage.open();
-    await appPage.expectTitle('Hello');
+    await appPage.expectPageTitle('Hello');
   });
 
   test('Access is forbidden with empty demoToken', async ({ appPage }) => {
     await appPage.openRaw(token.empty);
-    await appPage.expectTitle('Invalid Link');
+    await appPage.expectPageTitle('Invalid Link');
   });
 
   test('Redirects to main website with invalid demoToken', async ({
