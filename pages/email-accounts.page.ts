@@ -48,8 +48,11 @@ export class EmailAccountsPage extends EmailBasePage {
     await expect(this.successMessage).toContainText(text);
   }
 
-  async expectEmailAccountCreated(emailAccount: string): Promise<void> {
+  async expectEmailAccountCreated(
+    emailAccount: string,
+    selectedDomain: string,
+  ): Promise<void> {
     const emailAccounts = await this.accountRowsText.allTextContents();
-    expect(emailAccounts).toContain(emailAccount);
+    expect(emailAccounts).toContain(`${emailAccount}@${selectedDomain}`);
   }
 }

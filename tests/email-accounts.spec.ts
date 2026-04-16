@@ -1,5 +1,9 @@
 import { test, expect } from '../fixtures/email-accounts-fixtures';
-import { EXPECTED_DOMAINS } from '../utils/constants';
+import {
+  ACCOUNT_NAME,
+  EXPECTED_DOMAINS,
+  SELECTED_DOMAIN,
+} from '../utils/constants';
 
 test.describe('Automation Test Suite - Email Accounts page', () => {
   test('Add an email account with valid input succeeds', async ({
@@ -9,37 +13,26 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
     await appPage.open();
     await appPage.goToEmailAccounts();
 
-    await emailAccountsPage.expectEmailAccountsPageLoaded();
     await emailAccountsPage.openDomainDropdown();
     await emailAccountsPage.verifyAvailableDomains(EXPECTED_DOMAINS);
 
-    await emailAccountsPage.selectDomain('site-tools-demo.net');
+    await emailAccountsPage.selectDomain(SELECTED_DOMAIN);
 
-    await emailAccountsPage.fillEmailName('petromir');
+    await emailAccountsPage.fillAccountName(ACCOUNT_NAME);
+    await emailAccountsPage.generatePassword();
+    await emailAccountsPage.createEmailAccount();
 
-    await expect(emailAccountsPage.generatePasswordButton).toBeVisible();
-    await expect(emailAccountsPage.generatePasswordButton).toBeEnabled();
-
-    await emailAccountsPage.generatePasswordButton.click();
-    await emailAccountsPage.expectPasswordPopulated();
-
-    await emailAccountsPage.emailAccountCreateButton.click();
-    await expect(emailAccountsPage.emailCreateSuccessMessage).toBeVisible();
-    await expect(emailAccountsPage.emailCreateSuccessMessage).toContainText(
-      new RegExp('petromir'),
-    );
+    await emailAccountsPage.expectSuccessMessageContains(ACCOUNT_NAME);
     await emailAccountsPage.expectEmailAccountCreated(
-      'petromir@site-tools-demo.net',
+      ACCOUNT_NAME,
+      SELECTED_DOMAIN,
     );
   });
 });
 
-// 5. Verify Select Domain dropdown contains only the expected domain values
-// 6. Verify password is populated after clicking Generate
-// 7. Verify success message is shown after account creation
-// 8. Verify created account appears in the Manage Email accounts list
-// 9. Create email account without selecting domain
-// 10. Create email account with empty account name
-// 11. Create email account with invalid account name
-// 12. Create duplicate email account
-// 13. Verify Create button behavior when required fields are incomplete
+// 2. Create email account without selecting domain
+// 3. Create email account with empty account name
+// 4. Create email account with invalid account name
+// 5. Create email account with empty password
+// 6. Create email account with invalid password
+// 7. Create duplicate email account
