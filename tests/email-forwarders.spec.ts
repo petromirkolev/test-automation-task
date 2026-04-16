@@ -16,6 +16,6 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
 
     await emailForwardersPage.createEmailForwarder();
 
-    await emailForwardersPage.expectNameRequiredFieldError();
+    await emailForwardersPage.expectForwardToRequiredFieldError();
   });
 });

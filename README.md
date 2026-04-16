@@ -19,6 +19,7 @@ git clone https://github.com/petromirkolev/test-automation-task.git
 
 ```bash
 npm install
+npx playwright install
 ```
 
 3. Run tests
@@ -51,3 +52,8 @@ npm run test:debug
 
 - The application requires a demoToken query parameter in the URL.
 - Test execution uses a clean browser context to avoid state leakage from localStorage.
+
+## Task coverage
+
+- TC#1 Add an email account: implemented in "tests/email-accounts.spec.ts".
+- TC#2 Add an empty email forwarder: implemented in "tests/email-forwarders.spec.ts".

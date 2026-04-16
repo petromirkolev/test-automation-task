@@ -1,4 +1,4 @@
-import { test, expect } from '../fixtures/email-accounts-fixtures';
+import { test } from '../fixtures/email-accounts-fixtures';
 import {
   ACCOUNT_NAME,
   EXPECTED_DOMAINS,
@@ -20,7 +20,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
 
     await emailAccountsPage.fillAccountName(ACCOUNT_NAME);
     await emailAccountsPage.generatePassword();
-    await emailAccountsPage.createEmailAccount();
+    await emailAccountsPage.createAccount();
 
     await emailAccountsPage.expectSuccessMessageContains(ACCOUNT_NAME);
     await emailAccountsPage.expectEmailAccountCreated(
@@ -28,11 +28,14 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
       SELECTED_DOMAIN,
     );
   });
-});
 
-// 2. Create email account without selecting domain
-// 3. Create email account with empty account name
-// 4. Create email account with invalid account name
-// 5. Create email account with empty password
-// 6. Create email account with invalid password
-// 7. Create duplicate email account
+  test('Create duplicate email account', async () => {});
+
+  test('Create email account with empty account name', async () => {});
+
+  test('Create email account with empty password', async () => {});
+
+  test('Create email account with invalid account name', async () => {});
+
+  test('Create email account with invalid password', async () => {});
+});

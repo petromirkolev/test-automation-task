@@ -39,7 +39,7 @@ export class EmailAccountsPage extends EmailBasePage {
     ).toBeGreaterThanOrEqual(8);
   }
 
-  async createEmailAccount(): Promise<void> {
+  async createAccount(): Promise<void> {
     await this.createButton.click();
   }
 
@@ -55,4 +55,24 @@ export class EmailAccountsPage extends EmailBasePage {
     const emailAccounts = await this.accountRowsText.allTextContents();
     expect(emailAccounts).toContain(`${emailAccount}@${selectedDomain}`);
   }
+
+  // async createEmailAccount(): Promise<void> {
+  //   await appPage.open();
+  //       await appPage.goToEmailAccounts();
+
+  //       await emailAccountsPage.openDomainDropdown();
+  //       await emailAccountsPage.verifyAvailableDomains(EXPECTED_DOMAINS);
+
+  //       await emailAccountsPage.selectDomain(SELECTED_DOMAIN);
+
+  //       await emailAccountsPage.fillAccountName(ACCOUNT_NAME);
+  //       await emailAccountsPage.generatePassword();
+  //       await emailAccountsPage.createEmailAccount();
+
+  //       await emailAccountsPage.expectSuccessMessageContains(ACCOUNT_NAME);
+  //       await emailAccountsPage.expectEmailAccountCreated(
+  //         ACCOUNT_NAME,
+  //         SELECTED_DOMAIN,
+  //       );
+  // }
 }
