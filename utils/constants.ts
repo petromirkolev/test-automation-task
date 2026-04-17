@@ -1,5 +1,6 @@
 export const DEMO_JWT_TOKEN =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdF9uYW1lIjoiUSIsImxhc3RfbmFtZSI6IkEiLCJlbWFpbCI6InEuYUBkb21haW4uY29tIiwiZG9tYWluIjoiIiwibGFuZyI6ImVuIiwiZXhwIjoxOTcwMTI1MDc3Mn0.MXA6ZIdl85XojUPStcz3JqyEct0bpKeOk_EEfOh7z7o';
+  process.env.DEMO_JWT_TOKEN ??
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdF9uYW1lIjoiUSIsImxhc3RfbmFtZSI6IkEiLCJlbWFpbCI6InEuYUBzaXRlZ3JvdW5kLmNvbSIsImRvbWFpbiI6IiIsImxhbmciOiJlbiIsImV4cCI6MTk3MDEyNTA3NzJ9.MXA6ZIdl85XojUPStcz3JqyEct0bpKeOk_EEfOh7z7o';
 
 export const EXPECTED_DOMAINS = [
   'qa-automation-tools.com',
@@ -7,6 +8,15 @@ export const EXPECTED_DOMAINS = [
   'parked-qa-automation-tools.com',
   'site-tools-demo.net',
 ];
+
+export const VALID_TOKEN_PAYLOAD = {
+  first_name: 'Q',
+  last_name: 'A',
+  email: 'q.a@siteground.com',
+  domain: '',
+  lang: 'en',
+  exp: 19701250772,
+};
 
 export const ACCOUNT_NAME = 'test_account';
 export const EMAIL_ADDRESS = 'test_account@test.com';
