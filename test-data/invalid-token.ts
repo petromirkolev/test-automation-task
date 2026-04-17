@@ -1,6 +1,6 @@
 export const invalidToken = {
   emptyToken: {
-    testDescription: 'Access is forbinned with empty token',
+    testDescription: 'Access is forbidden with empty token',
     value: '',
     title: 'Invalid Link',
   },
