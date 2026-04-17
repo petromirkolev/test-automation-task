@@ -24,6 +24,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
 
     await emailAccountsPage.fillAccountName(ACCOUNT_NAME);
     await emailAccountsPage.generatePassword();
+    await emailAccountsPage.expectPasswordLength(1);
     await emailAccountsPage.createAccount();
 
     await emailAccountsPage.expectSuccessMessage(ACCOUNT_NAME);

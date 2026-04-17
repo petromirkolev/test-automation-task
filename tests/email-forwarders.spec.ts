@@ -29,7 +29,7 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     );
   });
 
-  test.only('Add email forwarder with valid data succeeds', async ({
+  test('Add email forwarder with valid data succeeds', async ({
     emailForwardersPage,
   }) => {
     await emailForwardersPage.openDomainDropdown();

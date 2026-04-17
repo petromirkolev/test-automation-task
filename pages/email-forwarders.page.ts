@@ -13,14 +13,12 @@ export class EmailForwardersPage extends EmailAccountsPage {
 
   constructor(page: Page) {
     super(page);
+
     this.forwardFrom = this.page.getByTestId('forward-crate-name-label');
     this.forwardFromInput = this.forwardFrom.getByTestId('forward-crate-name');
     this.forwardFromInputErrorMessage =
       this.forwardFrom.getByTestId('validation');
 
-    this.forwardTo = this.page.getByTestId(
-      'forward-crate-email_select_visual-wrapper',
-    );
     this.forwardTo = this.page.getByTestId(
       'forward-crate-email_select_visual-wrapper',
     );
