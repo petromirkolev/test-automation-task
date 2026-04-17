@@ -33,7 +33,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
     );
   });
 
-  test.only('Create duplicate email account is rejected', async ({
+  test('Create duplicate email account is rejected', async ({
     emailAccountsPage,
   }) => {
     await emailAccountsPage.createAccountWithGeneratedPassword(

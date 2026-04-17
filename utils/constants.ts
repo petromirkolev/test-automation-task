@@ -9,6 +9,7 @@ export const EXPECTED_DOMAINS = [
 ];
 
 export const ACCOUNT_NAME = 'test_account';
+export const EMAIL_ADDRESS = 'test_account@test.com';
 export const SELECTED_DOMAIN = 'site-tools-demo.net';
 
 export const REQUIRED_FIELD_MESSAGE = 'Required field';
@@ -19,3 +20,4 @@ export const INVALID_REPEAT_PASS = 'Avoid repeated words and characters';
 export const INVALID_COMMON_PASS = 'Uncommon words are better';
 export const INVALID_UNSUPPORTED_PASS =
   'Your password contains unsupported characters';
+export const INVALID_EMAIL_IN_LIST = 'Invalid email in list';
