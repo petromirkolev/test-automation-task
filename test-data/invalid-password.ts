@@ -8,32 +8,32 @@ import {
 
 export const invalidEmailpassword = {
   emptyPassword: {
-    value: '',
     testDescription: 'Invalid empty password',
+    value: '',
     errorMessage: REQUIRED_FIELD_MESSAGE,
   },
 
   shortPassword: {
-    value: 'T3$ting',
     testDescription: 'Invalid short password',
+    value: 'T3$ting',
     errorMessage: INVALID_PASS_TOO_SHORT,
   },
 
   repeatedPassword: {
-    value: 'T3$tingT3$tingT3$ting',
     testDescription: 'Invalid repeated password',
+    value: 'T3$tingT3$tingT3$ting',
     errorMessage: INVALID_REPEAT_PASS,
   },
 
   commonPassword: {
-    value: 'testingpass',
     testDescription: 'Invalid common password',
+    value: 'testingpass',
     errorMessage: INVALID_COMMON_PASS,
   },
 
   nonASCIIpassword: {
-    value: 'парола123',
     testDescription: 'Invalid non-ASCII password',
+    value: 'парола123',
     errorMessage: INVALID_UNSUPPORTED_PASS,
   },
 };
