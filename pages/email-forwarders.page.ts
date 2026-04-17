@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from '@playwright/test';
+import { Page, Locator, test, expect } from '@playwright/test';
 import { EmailBasePage } from './email-base.page';
 
 export class EmailForwardersPage extends EmailBasePage {
@@ -34,6 +34,7 @@ export class EmailForwardersPage extends EmailBasePage {
   }
 
   async fillForwardToAccount(input: string): Promise<void> {
+    // The destination field is a dropdown so the inner input becomes usable only after clicking on it
     await this.forwardToDropdown.click();
     await this.forwardToInput.fill(input);
   }

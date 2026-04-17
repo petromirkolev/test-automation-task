@@ -16,7 +16,7 @@ export const invalidEmailpassword = {
   whiteSpacedPassword: {
     testDescription: 'Invalid white-spaced password',
     value: '      ',
-    errorMessage: REQUIRED_FIELD_MESSAGE,
+    errorMessage: INVALID_PASS_TOO_SHORT,
   },
 
   shortPassword: {

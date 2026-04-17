@@ -14,34 +14,43 @@ import {
 test.describe('Automation Test Suite - Email Forwarders page', () => {
   test.beforeEach(async ({ appPage }) => {
     await appPage.open();
-
     await appPage.goToEmailForwarders();
   });
 
   test('Add empty email forwarder and verify required field error', async ({
     emailForwardersPage,
   }) => {
-    await emailForwardersPage.openDomainDropdown();
-    await emailForwardersPage.expectSelectDomainOptions(EXPECTED_DOMAINS);
-    await emailForwardersPage.selectDomain(SELECTED_DOMAIN);
+    await test.step('Select and verify available domains', async () => {
+      await emailForwardersPage.openDomainDropdown();
+      await emailForwardersPage.expectSelectDomainOptions(EXPECTED_DOMAINS);
+      await emailForwardersPage.selectDomain(SELECTED_DOMAIN);
+    });
 
-    await emailForwardersPage.createForwarder();
+    await test.step('Create email forwarder', async () => {
+      await emailForwardersPage.createForwarder();
+    });
 
-    await emailForwardersPage.expectForwardFromFieldError(
-      REQUIRED_FIELD_MESSAGE,
-    );
+    await test.step('Verify required field error message', async () => {
+      await emailForwardersPage.expectForwardFromFieldError(
+        REQUIRED_FIELD_MESSAGE,
+      );
+    });
   });
 
   test('Add email forwarder with valid data succeeds', async ({
     emailForwardersPage,
   }) => {
-    await emailForwardersPage.createForwarder(
-      SELECTED_DOMAIN,
-      ACCOUNT_NAME,
-      EMAIL_ADDRESS,
-    );
+    await test.step('Fill and submit email forwarder form', async () => {
+      await emailForwardersPage.createForwarder(
+        SELECTED_DOMAIN,
+        ACCOUNT_NAME,
+        EMAIL_ADDRESS,
+      );
+    });
 
-    await emailForwardersPage.expectSuccessMessage(ACCOUNT_NAME);
+    await test.step('Verify successful email forwarder creation', async () => {
+      await emailForwardersPage.expectSuccessMessage(ACCOUNT_NAME);
+    });
   });
 
   test.describe('Create email forwarder with invalid from name', () => {
