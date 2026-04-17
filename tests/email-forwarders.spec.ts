@@ -14,6 +14,7 @@ import {
 test.describe('Automation Test Suite - Email Forwarders page', () => {
   test.beforeEach(async ({ appPage }) => {
     await appPage.open();
+
     await appPage.goToEmailForwarders();
   });
 
@@ -21,9 +22,11 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     emailForwardersPage,
   }) => {
     await emailForwardersPage.openDomainDropdown();
-    await emailForwardersPage.verifyAvailableDomains(EXPECTED_DOMAINS);
+    await emailForwardersPage.expectSelectDomainOptions(EXPECTED_DOMAINS);
     await emailForwardersPage.selectDomain(SELECTED_DOMAIN);
-    await emailForwardersPage.createEmailForwarder();
+
+    await emailForwardersPage.createForwarder();
+
     await emailForwardersPage.expectForwardFromFieldError(
       REQUIRED_FIELD_MESSAGE,
     );
@@ -32,41 +35,40 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
   test('Add email forwarder with valid data succeeds', async ({
     emailForwardersPage,
   }) => {
-    await emailForwardersPage.openDomainDropdown();
-    await emailForwardersPage.verifyAvailableDomains(EXPECTED_DOMAINS);
-    await emailForwardersPage.selectDomain(SELECTED_DOMAIN);
-    await emailForwardersPage.fillForwardFromName(ACCOUNT_NAME);
-    await emailForwardersPage.fillForwardToAccount(EMAIL_ADDRESS);
-    await emailForwardersPage.createEmailForwarder();
+    await emailForwardersPage.createForwarder(
+      SELECTED_DOMAIN,
+      ACCOUNT_NAME,
+      EMAIL_ADDRESS,
+    );
+
     await emailForwardersPage.expectSuccessMessage(ACCOUNT_NAME);
   });
 
-  test.describe('Create email forwarder with invalid from name', async () => {
+  test.describe('Create email forwarder with invalid from name', () => {
     for (const key of Object.keys(invalidEmailname) as Array<
       keyof typeof invalidEmailname
     >) {
       const { value, testDescription, errorMessage } = invalidEmailname[key];
       test(testDescription, async ({ emailForwardersPage }) => {
-        await emailForwardersPage.createForwarderWithoutName(
-          SELECTED_DOMAIN,
-          value,
-        );
+        await emailForwardersPage.createForwarder(SELECTED_DOMAIN, value);
+
         await emailForwardersPage.expectForwardFromFieldError(errorMessage);
       });
     }
   });
 
-  test.describe('Create email forwarder with invalid to email address', async () => {
+  test.describe('Create email forwarder with invalid to email address', () => {
     for (const key of Object.keys(invalidEmailAddress) as Array<
       keyof typeof invalidEmailAddress
     >) {
       const { value, testDescription, errorMessage } = invalidEmailAddress[key];
       test(testDescription, async ({ emailForwardersPage }) => {
-        await emailForwardersPage.createForwarderWithName(
+        await emailForwardersPage.createForwarder(
           SELECTED_DOMAIN,
           ACCOUNT_NAME,
           value,
         );
+
         await emailForwardersPage.expectForwardToFieldError(errorMessage);
       });
     }

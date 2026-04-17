@@ -4,7 +4,7 @@ import { decodeJwtPayload } from '../utils/helpers';
 
 export class AppPage {
   readonly page: Page;
-  private readonly avatar: Locator;
+  private readonly userAvatar: Locator;
   private readonly pageTitle: Locator;
   private readonly emailMenu: Locator;
   private readonly emailAccountsLink: Locator;
@@ -12,7 +12,7 @@ export class AppPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.avatar = this.page.getByTestId('avatar');
+    this.userAvatar = this.page.getByTestId('avatar');
     this.pageTitle = this.page.getByRole('heading', { level: 1 });
     this.emailMenu = this.page.getByTestId('navigation').getByText('Email');
     this.emailAccountsLink = this.page.getByTestId(
@@ -48,6 +48,6 @@ export class AppPage {
   }
 
   async expectPageAvatar(avatar: string): Promise<void> {
-    await expect(this.avatar).toContainText(avatar);
+    await expect(this.userAvatar).toContainText(avatar);
   }
 }

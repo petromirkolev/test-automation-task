@@ -2,11 +2,10 @@ import { Page, Locator, expect } from '@playwright/test';
 import { EmailBasePage } from './email-base.page';
 
 export class EmailAccountsPage extends EmailBasePage {
-  private readonly accountNameInput: Locator;
+  private readonly emailNameInput: Locator;
   private readonly generatePasswordButton: Locator;
-  private readonly passwordInput: Locator;
-  private readonly createButton: Locator;
-  private readonly successMessage: Locator;
+  private readonly emailPasswordInput: Locator;
+  private readonly createAccountButton: Locator;
   private readonly accountNameErrorMessage: Locator;
   private readonly accountPasswordErrorMessage: Locator;
   private readonly accountRowsText: Locator;
@@ -14,15 +13,12 @@ export class EmailAccountsPage extends EmailBasePage {
 
   constructor(page: Page) {
     super(page);
-    this.accountNameInput = this.page.getByTestId('text-input-name');
+    this.emailNameInput = this.page.getByTestId('text-input-name');
     this.generatePasswordButton = this.page
       .getByTestId('form-password-password-label')
       .getByTestId('password-generate');
-    this.passwordInput = this.page.getByTestId('form-password-password');
-    this.createButton = this.page.getByTestId('create-box-submit');
-    this.successMessage = this.page
-      .getByTestId('box-notification')
-      .getByTestId('title');
+    this.emailPasswordInput = this.page.getByTestId('form-password-password');
+    this.createAccountButton = this.page.getByTestId('create-box-submit');
     this.accountNameErrorMessage = this.page
       .getByTestId('text-input-name-label')
       .getByTestId('validation');
@@ -34,29 +30,25 @@ export class EmailAccountsPage extends EmailBasePage {
   }
 
   async fillAccountName(name: string): Promise<void> {
-    await this.accountNameInput.fill(name);
+    await this.emailNameInput.fill(name);
   }
 
   async fillAccountPassword(password: string): Promise<void> {
-    await this.passwordInput.fill(password);
+    await this.emailPasswordInput.fill(password);
   }
 
   async generatePassword(): Promise<void> {
     await this.generatePasswordButton.click();
   }
 
-  async expectPasswordLength(length: number): Promise<void> {
+  async expectPasswordPopulated(length: number = 8): Promise<void> {
     expect(
-      (await this.passwordInput.inputValue()).length,
+      (await this.emailPasswordInput.inputValue()).length,
     ).toBeGreaterThanOrEqual(length);
   }
 
-  async createAccount(): Promise<void> {
-    await this.createButton.click();
-  }
-
-  async expectSuccessMessage(text: string): Promise<void> {
-    await expect(this.successMessage).toContainText(text);
+  async clickCreateAccountBtn(): Promise<void> {
+    await this.createAccountButton.click();
   }
 
   async expectNameErrorMessage(text: string): Promise<void> {
@@ -75,30 +67,24 @@ export class EmailAccountsPage extends EmailBasePage {
     expect(emailAccounts).toContain(`${emailAccount}@${selectedDomain}`);
   }
 
-  async successMessageGoBack(): Promise<void> {
+  async clickBackButton(): Promise<void> {
     await this.backButton.click();
   }
 
-  async createAccountWithGeneratedPassword(
+  async createAccount(
     domain: string,
-    accountName: string,
+    name: string,
+    password?: string,
   ): Promise<void> {
     await this.openDomainDropdown();
     await this.selectDomain(domain);
-    await this.fillAccountName(accountName);
-    await this.generatePassword();
-    await this.createAccount();
-  }
+    await this.fillAccountName(name);
 
-  async createAccountWithProvidedPassword(
-    domain: string,
-    accountName: string,
-    password: string,
-  ): Promise<void> {
-    await this.openDomainDropdown();
-    await this.selectDomain(domain);
-    await this.fillAccountName(accountName);
-    await this.fillAccountPassword(password);
-    await this.createAccount();
+    if (password) {
+      await this.fillAccountPassword(password);
+    } else {
+      await this.generatePassword();
+    }
+    await this.clickCreateAccountBtn();
   }
 }

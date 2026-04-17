@@ -13,6 +13,12 @@ export const invalidEmailpassword = {
     errorMessage: REQUIRED_FIELD_MESSAGE,
   },
 
+  whiteSpacedPassword: {
+    testDescription: 'Invalid white-spaced password',
+    value: '      ',
+    errorMessage: REQUIRED_FIELD_MESSAGE,
+  },
+
   shortPassword: {
     testDescription: 'Invalid short password',
     value: 'T3$ting',

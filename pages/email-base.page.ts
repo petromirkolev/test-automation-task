@@ -4,6 +4,7 @@ import { AppPage } from './app-page';
 export class EmailBasePage extends AppPage {
   protected readonly selectDomainDropdown: Locator;
   protected readonly domainOptions: Locator;
+  private readonly successMessage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -13,20 +14,31 @@ export class EmailBasePage extends AppPage {
     this.domainOptions = this.page
       .getByTestId('dropdown-options')
       .getByRole('option');
+    this.successMessage = this.page
+      .getByTestId('box-notification')
+      .getByTestId('title');
   }
 
   async openDomainDropdown(): Promise<void> {
     await this.selectDomainDropdown.click();
   }
 
-  async verifyAvailableDomains(expectedDomains: string[]): Promise<void> {
-    const actualDomains = (await this.domainOptions.allTextContents()).map(
-      (text) => text.trim(),
+  async getAvailableDomains(): Promise<string[]> {
+    return (await this.domainOptions.allTextContents()).map((option) =>
+      option.trim(),
     );
-    expect(actualDomains).toEqual(expectedDomains);
+  }
+
+  async expectSelectDomainOptions(expectedDomains: string[]): Promise<void> {
+    const availableDomains = await this.getAvailableDomains();
+    expect(availableDomains).toEqual(expectedDomains);
   }
 
   async selectDomain(domain: string): Promise<void> {
     await this.domainOptions.filter({ hasText: domain }).click();
+  }
+
+  async expectSuccessMessage(text: string): Promise<void> {
+    await expect(this.successMessage).toContainText(text);
   }
 }
