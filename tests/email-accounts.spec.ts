@@ -2,12 +2,9 @@ import { test } from '../fixtures/app-fixtures';
 import { invalidEmailname } from '../test-data/invalid-email';
 import { invalidEmailpassword } from '../test-data/invalid-password';
 import { createExistingAccount } from '../utils/helpers';
-import {
-  EMAIL_ACCOUNT_EXISTS_MESSAGE,
-  ACCOUNT_NAME,
-  EXPECTED_DOMAINS,
-  SELECTED_DOMAIN,
-} from '../utils/constants';
+import { msg } from '../utils/constants';
+import { DOMAINS } from '../test-data/domains-list';
+import { VALID_EMAIL_ACCOUNT } from '../test-data/email-account';
 
 test.describe('Automation Test Suite - Email Accounts page', () => {
   test.beforeEach(async ({ appPage }) => {
@@ -20,22 +17,26 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
   }) => {
     await test.step('Select and verify available domains', async () => {
       await emailAccountsPage.openDomainDropdown();
-      await emailAccountsPage.expectSelectDomainOptions(EXPECTED_DOMAINS);
-      await emailAccountsPage.selectDomain(SELECTED_DOMAIN);
+      await emailAccountsPage.expectSelectDomainOptions(
+        DOMAINS.expectedDomains,
+      );
+      await emailAccountsPage.selectDomain(DOMAINS.selectedDomain);
     });
 
     await test.step('Create email account', async () => {
-      await emailAccountsPage.fillAccountName(ACCOUNT_NAME);
+      await emailAccountsPage.fillAccountName(VALID_EMAIL_ACCOUNT.accountName);
       await emailAccountsPage.generatePassword();
       await emailAccountsPage.expectPasswordPopulated();
       await emailAccountsPage.clickCreateAccountBtn();
     });
 
     await test.step('Verify successful account creation', async () => {
-      await emailAccountsPage.expectSuccessMessage(ACCOUNT_NAME);
+      await emailAccountsPage.expectSuccessMessage(
+        VALID_EMAIL_ACCOUNT.accountName,
+      );
       await emailAccountsPage.expectEmailAccountCreated(
-        ACCOUNT_NAME,
-        SELECTED_DOMAIN,
+        VALID_EMAIL_ACCOUNT.accountName,
+        DOMAINS.selectedDomain,
       );
     });
   });
@@ -48,9 +49,12 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
     });
 
     await test.step('Try to create the same account again', async () => {
-      await emailAccountsPage.createAccount(SELECTED_DOMAIN, ACCOUNT_NAME);
+      await emailAccountsPage.createAccount(
+        DOMAINS.selectedDomain,
+        VALID_EMAIL_ACCOUNT.accountName,
+      );
       await emailAccountsPage.expectNameErrorMessage(
-        EMAIL_ACCOUNT_EXISTS_MESSAGE,
+        msg.EMAIL_ACCOUNT_EXISTS_MESSAGE,
       );
     });
   });
@@ -61,7 +65,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
     >) {
       const { value, testDescription, errorMessage } = invalidEmailname[key];
       test(testDescription, async ({ emailAccountsPage }) => {
-        await emailAccountsPage.createAccount(SELECTED_DOMAIN, value);
+        await emailAccountsPage.createAccount(DOMAINS.selectedDomain, value);
         await emailAccountsPage.expectNameErrorMessage(errorMessage);
       });
     }
@@ -75,8 +79,8 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
         invalidEmailpassword[key];
       test(testDescription, async ({ emailAccountsPage }) => {
         await emailAccountsPage.createAccount(
-          SELECTED_DOMAIN,
-          ACCOUNT_NAME,
+          DOMAINS.selectedDomain,
+          VALID_EMAIL_ACCOUNT.accountName,
           value,
         );
         await emailAccountsPage.expectPasswordErrorMessage(errorMessage);

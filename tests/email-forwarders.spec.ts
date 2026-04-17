@@ -1,15 +1,11 @@
 import { test } from '../fixtures/app-fixtures';
+import { DOMAINS } from '../test-data/domains-list';
+import { VALID_EMAIL_FORWARDER } from '../test-data/email-forwarder';
 import {
   invalidEmailAddress,
   invalidEmailname,
 } from '../test-data/invalid-email';
-import {
-  ACCOUNT_NAME,
-  EMAIL_ADDRESS,
-  EXPECTED_DOMAINS,
-  REQUIRED_FIELD_MESSAGE,
-  SELECTED_DOMAIN,
-} from '../utils/constants';
+import { msg } from '../utils/constants';
 
 test.describe('Automation Test Suite - Email Forwarders page', () => {
   test.beforeEach(async ({ appPage }) => {
@@ -22,8 +18,10 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
   }) => {
     await test.step('Select and verify available domains', async () => {
       await emailForwardersPage.openDomainDropdown();
-      await emailForwardersPage.expectSelectDomainOptions(EXPECTED_DOMAINS);
-      await emailForwardersPage.selectDomain(SELECTED_DOMAIN);
+      await emailForwardersPage.expectSelectDomainOptions(
+        DOMAINS.expectedDomains,
+      );
+      await emailForwardersPage.selectDomain(DOMAINS.selectedDomain);
     });
 
     await test.step('Create email forwarder', async () => {
@@ -32,7 +30,7 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
 
     await test.step('Verify required field error message', async () => {
       await emailForwardersPage.expectForwardFromFieldError(
-        REQUIRED_FIELD_MESSAGE,
+        msg.REQUIRED_FIELD_MESSAGE,
       );
     });
   });
@@ -42,14 +40,16 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
   }) => {
     await test.step('Fill and submit email forwarder form', async () => {
       await emailForwardersPage.createForwarder(
-        SELECTED_DOMAIN,
-        ACCOUNT_NAME,
-        EMAIL_ADDRESS,
+        DOMAINS.selectedDomain,
+        VALID_EMAIL_FORWARDER.fromName,
+        VALID_EMAIL_FORWARDER.toEmailAddress,
       );
     });
 
     await test.step('Verify successful email forwarder creation', async () => {
-      await emailForwardersPage.expectSuccessMessage(ACCOUNT_NAME);
+      await emailForwardersPage.expectSuccessMessage(
+        VALID_EMAIL_FORWARDER.fromName,
+      );
     });
   });
 
@@ -59,7 +59,10 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     >) {
       const { value, testDescription, errorMessage } = invalidEmailname[key];
       test(testDescription, async ({ emailForwardersPage }) => {
-        await emailForwardersPage.createForwarder(SELECTED_DOMAIN, value);
+        await emailForwardersPage.createForwarder(
+          DOMAINS.selectedDomain,
+          value,
+        );
 
         await emailForwardersPage.expectForwardFromFieldError(errorMessage);
       });
@@ -73,8 +76,8 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
       const { value, testDescription, errorMessage } = invalidEmailAddress[key];
       test(testDescription, async ({ emailForwardersPage }) => {
         await emailForwardersPage.createForwarder(
-          SELECTED_DOMAIN,
-          ACCOUNT_NAME,
+          DOMAINS.selectedDomain,
+          VALID_EMAIL_FORWARDER.fromName,
           value,
         );
 

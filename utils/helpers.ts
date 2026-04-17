@@ -1,5 +1,5 @@
 import { EmailAccountsPage } from '../pages/email-accounts.page';
-import { ACCOUNT_NAME, SELECTED_DOMAIN } from './constants';
+import { VALID_EMAIL_ACCOUNT } from '../test-data/email-account';
 
 export function decodeJwtPayload(token: string) {
   const payload = token.split('.')[1];
@@ -10,7 +10,10 @@ export function decodeJwtPayload(token: string) {
 export async function createExistingAccount(
   emailAccountsPage: EmailAccountsPage,
 ): Promise<void> {
-  await emailAccountsPage.createAccount(SELECTED_DOMAIN, ACCOUNT_NAME);
-  await emailAccountsPage.expectSuccessMessage(ACCOUNT_NAME);
+  await emailAccountsPage.createAccount(
+    VALID_EMAIL_ACCOUNT.selectedDomain,
+    VALID_EMAIL_ACCOUNT.accountName,
+  );
+  await emailAccountsPage.expectSuccessMessage(VALID_EMAIL_ACCOUNT.accountName);
   await emailAccountsPage.clickBackButton();
 }

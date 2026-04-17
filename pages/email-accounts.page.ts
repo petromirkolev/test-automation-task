@@ -41,7 +41,7 @@ export class EmailAccountsPage extends EmailBasePage {
     await this.generatePasswordButton.click();
   }
 
-  async expectPasswordPopulated(length: number = 1): Promise<void> {
+  async expectPasswordPopulated(length: number = 8): Promise<void> {
     expect(
       (await this.emailPasswordInput.inputValue()).length,
     ).toBeGreaterThanOrEqual(length);

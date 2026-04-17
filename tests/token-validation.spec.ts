@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import {
   DEMO_JWT_TOKEN,
   VALID_TOKEN_PAYLOAD as token,
-} from '../utils/constants';
+} from '../test-data/token';
 import { decodeJwtPayload } from '../utils/helpers';
 
 test.describe('Automation Test Suite - Token validation', () => {
