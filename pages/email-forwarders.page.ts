@@ -9,7 +9,6 @@ export class EmailForwardersPage extends EmailBasePage {
 
   constructor(page: Page) {
     super(page);
-
     this.forwardFromInput = this.page.getByTestId('forward-crate-name');
     this.submitButton = this.page.getByTestId('create-box-submit');
     this.forwardFromInputErrorMessage = this.page

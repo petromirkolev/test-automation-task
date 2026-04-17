@@ -12,3 +12,4 @@ export const ACCOUNT_NAME = 'test_account';
 export const SELECTED_DOMAIN = 'site-tools-demo.net';
 export const SUCCESS_MESSAGE = `Email account ${ACCOUNT_NAME} is created`;
 export const REQUIRED_FIELD_MESSAGE = 'Required field';
+export const ACCOUNT_EXISTS_MESSAGE = 'Email account already exists';

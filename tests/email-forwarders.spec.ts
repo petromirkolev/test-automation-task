@@ -1,4 +1,4 @@
-import { test } from '../fixtures/email-forwarders-fixtures';
+import { test } from '../fixtures/app-fixtures';
 import { EXPECTED_DOMAINS, SELECTED_DOMAIN } from '../utils/constants';
 
 test.describe('Automation Test Suite - Email Forwarders page', () => {

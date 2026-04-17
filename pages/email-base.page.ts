@@ -1,14 +1,13 @@
 import { Page, Locator, expect } from '@playwright/test';
+import { AppPage } from './app-page';
 
-export class EmailBasePage {
-  readonly page: Page;
+export class EmailBasePage extends AppPage {
   protected readonly selectDomainDropdown: Locator;
   protected readonly domainOptions: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.selectDomainDropdown = this.page
-      .getByTestId('domain-select')
       .getByTestId('dropdown-label')
       .getByTestId('dropdown');
     this.domainOptions = this.page

@@ -10,14 +10,12 @@ export class AppPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.pageTitle = page.getByRole('heading', { level: 1 });
-    this.emailMenu = this.page
-      .getByRole('listitem')
-      .filter({ hasText: 'Email' });
-    this.emailAccountsLink = this.emailMenu.getByTestId(
+    this.pageTitle = this.page.getByRole('heading', { level: 1 });
+    this.emailMenu = this.page.getByTestId('navigation').getByText('Email');
+    this.emailAccountsLink = this.page.getByTestId(
       'navigation-list-item-email',
     );
-    this.emailForwardersLink = this.emailMenu.getByTestId(
+    this.emailForwardersLink = this.page.getByTestId(
       'navigation-list-item-email-forward',
     );
   }
