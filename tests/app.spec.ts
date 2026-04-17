@@ -9,7 +9,7 @@ test.describe('Automation Test Suite - Application page', () => {
     await appPage.expectPageTitle(`Hello, ${payload.first_name}!`);
   });
 
-  test.describe('Invalid token', () => {
+  test.describe('Invalid demoToken', () => {
     for (const key of Object.keys(invalidToken) as Array<
       keyof typeof invalidToken
     >) {

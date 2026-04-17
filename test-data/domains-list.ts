@@ -1,4 +1,4 @@
-export const DOMAINS = {
+export const domains = {
   expectedDomains: [
     'qa-automation-tools.com',
     'store.qa-automation-tools.com',

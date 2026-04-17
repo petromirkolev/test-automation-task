@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { DEMO_JWT_TOKEN } from '../test-data/token';
+import { DEMO_JWT_TOKEN } from '../test-data/valid-token';
 import { decodeJwtPayload } from '../utils/helpers';
 
 export class AppPage {

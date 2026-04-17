@@ -1,11 +1,9 @@
 import { test } from '../fixtures/app-fixtures';
-import { DOMAINS } from '../test-data/domains-list';
-import { VALID_EMAIL_FORWARDER } from '../test-data/email-forwarder';
+import { validEmailForwarder } from '../test-data/valid-email-forwarder';
 import {
   invalidEmailAddress,
   invalidEmailname,
-} from '../test-data/invalid-email';
-import { msg } from '../utils/constants';
+} from '../test-data/invalid-email-account';
 
 test.describe('Automation Test Suite - Email Forwarders page', () => {
   test.beforeEach(async ({ appPage }) => {
@@ -16,12 +14,12 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
   test('Add empty email forwarder and verify required field error @required', async ({
     emailForwardersPage,
   }) => {
+    const data = validEmailForwarder;
+
     await test.step('Select and verify available domains', async () => {
       await emailForwardersPage.openDomainDropdown();
-      await emailForwardersPage.expectSelectDomainOptions(
-        DOMAINS.expectedDomains,
-      );
-      await emailForwardersPage.selectDomain(DOMAINS.selectedDomain);
+      await emailForwardersPage.expectSelectDomainOptions(data.expectedDomains);
+      await emailForwardersPage.selectDomain(data.selectedDomain);
     });
 
     await test.step('Create email forwarder', async () => {
@@ -30,7 +28,7 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
 
     await test.step('Verify required field error message', async () => {
       await emailForwardersPage.expectForwardFromFieldError(
-        msg.REQUIRED_FIELD_MESSAGE,
+        data.expectedErrorMessage,
       );
     });
   });
@@ -38,18 +36,18 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
   test('Add email forwarder with valid data succeeds', async ({
     emailForwardersPage,
   }) => {
+    const data = validEmailForwarder;
+
     await test.step('Fill and submit email forwarder form', async () => {
       await emailForwardersPage.createForwarder(
-        DOMAINS.selectedDomain,
-        VALID_EMAIL_FORWARDER.fromName,
-        VALID_EMAIL_FORWARDER.toEmailAddress,
+        data.selectedDomain,
+        data.fromName,
+        data.toEmailAddress,
       );
     });
 
     await test.step('Verify successful email forwarder creation', async () => {
-      await emailForwardersPage.expectSuccessMessage(
-        VALID_EMAIL_FORWARDER.fromName,
-      );
+      await emailForwardersPage.expectSuccessMessage(data.fromName);
     });
   });
 
@@ -57,12 +55,10 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     for (const key of Object.keys(invalidEmailname) as Array<
       keyof typeof invalidEmailname
     >) {
-      const { value, testDescription, errorMessage } = invalidEmailname[key];
+      const { value, selectedDomain, testDescription, errorMessage } =
+        invalidEmailname[key];
       test(testDescription, async ({ emailForwardersPage }) => {
-        await emailForwardersPage.createForwarder(
-          DOMAINS.selectedDomain,
-          value,
-        );
+        await emailForwardersPage.createForwarder(selectedDomain, value);
 
         await emailForwardersPage.expectForwardFromFieldError(errorMessage);
       });
@@ -73,11 +69,12 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     for (const key of Object.keys(invalidEmailAddress) as Array<
       keyof typeof invalidEmailAddress
     >) {
-      const { value, testDescription, errorMessage } = invalidEmailAddress[key];
+      const { value, selectedDomain, testDescription, errorMessage } =
+        invalidEmailAddress[key];
       test(testDescription, async ({ emailForwardersPage }) => {
         await emailForwardersPage.createForwarder(
-          DOMAINS.selectedDomain,
-          VALID_EMAIL_FORWARDER.fromName,
+          selectedDomain,
+          validEmailForwarder.fromName,
           value,
         );
 
