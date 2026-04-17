@@ -15,7 +15,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
     await appPage.goToEmailAccounts();
   });
 
-  test('Create email account with valid input succeeds', async ({
+  test('Create email account with valid input succeeds @required', async ({
     emailAccountsPage,
   }) => {
     await test.step('Select and verify available domains', async () => {

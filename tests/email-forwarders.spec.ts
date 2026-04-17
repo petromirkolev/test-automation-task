@@ -17,7 +17,7 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     await appPage.goToEmailForwarders();
   });
 
-  test('Add empty email forwarder and verify required field error', async ({
+  test('Add empty email forwarder and verify required field error @required', async ({
     emailForwardersPage,
   }) => {
     await test.step('Select and verify available domains', async () => {
