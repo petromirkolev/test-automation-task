@@ -36,7 +36,15 @@ npm install
 npx playwright install
 ```
 
+"npx playwright install" is required at least once to download browser binaries.
+
 3. Run tests
+
+### Run only the 2 assignment-required test cases (TC#1 and TC#2):
+
+```bash
+npm run test:required
+```
 
 ### Run the full suite:
 
@@ -44,16 +52,16 @@ npx playwright install
 npm test
 ```
 
-### Run tests in headed mode:
-
-```bash
-npm run test:headed
-```
-
 ### Run tests with Playwright UI:
 
 ```bash
 npm run test:ui
+```
+
+### Run tests in headed mode:
+
+```bash
+npm run test:headed
 ```
 
 ### Run tests in debug mode
