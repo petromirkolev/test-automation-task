@@ -1,4 +1,4 @@
-# Demo Hosting App - Playwright Automation
+# Playwright Automation Task - Demo Hosting App
 
 [![Playwright Tests](https://github.com/petromirkolev/test-automation-task/actions/workflows/playwright.yml/badge.svg)](https://github.com/petromirkolev/test-automation-task/actions/workflows/playwright.yml)
 
@@ -13,14 +13,15 @@ It covers the 2 required scenarios from the task and includes a small amount of 
 
 ## Project structure
 
-- "tests/app.spec.ts" – basic app access checks
-- "tests/email-accounts.spec.ts" – Email Accounts scenarios
-- "tests/email-forwarders.spec.ts" – Email Forwarders scenarios
-- "pages/" – Page Object Models
-- "fixtures/" – Playwright fixtures for page objects
-- "utils/" – shared constants and helpers
-- "test-data/" – test input data
-- "test-plan.md" – test plan and covered scenarios
+- "tests/app.spec.ts" - Basic app access checks
+- "tests/email-accounts.spec.ts" - Email Accounts scenarios
+- "tests/email-forwarders.spec.ts" - Email Forwarders scenarios
+- "tests/token-validation.spec.ts" - Demo token payload validation checks
+- "pages/" - Page Object Models
+- "fixtures/" - Playwright fixtures for page objects
+- "utils/" - Shared constants and helpers
+- "test-data/" - Test input data
+- "test-plan.md" - Test plan and covered scenarios
 
 ## Setup
 
@@ -75,7 +76,10 @@ npm run test:debug
 ## Notes
 
 - The application requires a demoToken query parameter in the URL.
+- The assignment-provided demo token is used by default.
+- The token can optionally be overridden with the DEMO_JWT_TOKEN environment variable.
 - Test execution uses a clean browser context to avoid state leakage from localStorage.
+- The suite is configured to run across Chromium, Firefox, and WebKit.
 
 ## Required task coverage
 
@@ -85,16 +89,16 @@ Implemented in tests/email-accounts.spec.ts
 
 Covered flow:
 
-- open app with demo token
-- navigate to Email > Accounts
-- verify the available domain list
-- select site-tools-demo.net
-- enter account name
-- generate password
-- verify password is populated
-- create the account
-- verify success message
-- verify the created account appears in the table
+- Open app with demo token
+- Navigate to Email > Accounts
+- Verify the available domains in the domain drop-down
+- Select site-tools-demo.net
+- Enter account name
+- Generate password
+- Verify password is populated
+- Create the account
+- Verify account creation success message
+- Verify the created account appears in the email accounts list
 
 ### TC#2 Add an empty email Forwarder
 
@@ -102,19 +106,21 @@ Implemented in tests/email-forwarders.spec.ts
 
 Covered flow:
 
-- open app with demo token
-- navigate to Email > Forwarders
-- verify the available domain list
-- select site-tools-demo.net
-- leave fields empty
-- click Create
-- verify the required field validation for “Forward all messages sent to:”
+- Open app with demo token
+- Navigate to Email > Forwarders
+- Verify the available domains in the domain drop-down
+- Select site-tools-demo.net
+- Leave fields empty
+- Click Create
+- Verify the required field validation for “Forward all messages sent to:”
 
 ## Additional coverage
 
 In addition to the 2 required scenarios, the suite includes a few focused validation checks around the same features, such as:
 
-- app access checks
-- duplicate email account validation
-- invalid email account name checks
-- additional forwarder validation checks
+- App access checks
+- Demo token payload validation
+- Duplicate email account validation
+- Invalid email account name checks
+- Invalid password checks
+- Additional forwarder validation checks
