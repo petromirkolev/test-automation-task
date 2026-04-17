@@ -13,7 +13,7 @@ Provide Playwright automation for the required assignment scenarios and a small 
 
 ### Additional focused scope
 
-- Application access checks
+- Application access and demo token validation
 - Email account validation checks
 - Forwarder validation checks
 
@@ -30,19 +30,17 @@ Provide Playwright automation for the required assignment scenarios and a small 
 
 ## Covered automated test cases
 
-## 1. Application access
+## 1. Application access and demo token validation
 
 ### APP-01 Open application with valid demo token
 
 **Purpose:** Verify the application loads successfully when opened with the provided demo token.
 
-### APP-02 Open application without token
+### APP-02 Invalid demo token handling
 
-**Purpose:** Verify application access behavior when "demoToken" is missing.
+**Purpose:** Verify application behavior when "demoToken" is not valid.
 
-### APP-03 Open application with malformed token
-
-**Purpose:** Verify application access behavior when "demoToken" is invalid.
+**Note:** Data-driven invalid token checks are covered in "tests/app.spec.ts".
 
 ---
 
@@ -51,24 +49,6 @@ Provide Playwright automation for the required assignment scenarios and a small 
 ### EA-01 Create email account with valid input succeeds
 
 **Purpose:** Cover the required happy path from the assignment.
-
-**Steps covered:**
-
-1. Open application
-2. Navigate to **Email > Accounts**
-3. Open **Select Domain**
-4. Verify available domains are:
-   - "qa-automation-tools.com"
-   - "store.qa-automation-tools.com"
-   - "parked-qa-automation-tools.com"
-   - "site-tools-demo.net"
-5. Select "site-tools-demo.net"
-6. Enter account name
-7. Generate password
-8. Verify password is populated
-9. Click **Create**
-10. Verify success message
-11. Verify created account appears in the table
 
 ### EA-02 Duplicate email account name is rejected
 
@@ -93,21 +73,6 @@ Provide Playwright automation for the required assignment scenarios and a small 
 ### EF-01 Add empty email forwarder and verify required field error
 
 **Purpose:** Cover the required negative scenario from the assignment.
-
-**Steps covered:**
-
-1. Open application
-2. Navigate to **Email > Forwarders**
-3. Open **Select Domain**
-4. Verify available domains are:
-   - "qa-automation-tools.com"
-   - "store.qa-automation-tools.com"
-   - "parked-qa-automation-tools.com"
-   - "site-tools-demo.net"
-5. Select "site-tools-demo.net"
-6. Leave inputs empty
-7. Click **Create**
-8. Verify **Required field** validation for **“Forward all messages sent to:”**
 
 ### EF-02 Create email forwarder with valid input succeeds
 
