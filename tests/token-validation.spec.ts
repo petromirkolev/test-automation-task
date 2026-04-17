@@ -6,11 +6,10 @@ import {
 import { decodeJwtPayload } from '../utils/helpers';
 
 test.describe('Token validation', () => {
-  test.only('Provided demo token payload matches expected values', async () => {
-    const payload = decodeJwtPayload(DEMO_JWT_TOKEN);
-
-    for (const [key, value] of Object.entries(token)) {
-      expect(payload[key]).toBe(value);
-    }
-  });
+  for (const [key, value] of Object.entries(token)) {
+    test(`Token payload field ${key} matches expected value`, async () => {
+      const payload = decodeJwtPayload(DEMO_JWT_TOKEN);
+      expect(payload[key as keyof typeof token]).toBe(value);
+    });
+  }
 });
