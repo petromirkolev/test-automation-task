@@ -10,6 +10,12 @@ export const EXPECTED_DOMAINS = [
 
 export const ACCOUNT_NAME = 'test_account';
 export const SELECTED_DOMAIN = 'site-tools-demo.net';
-export const SUCCESS_MESSAGE = `Email account ${ACCOUNT_NAME} is created`;
+
 export const REQUIRED_FIELD_MESSAGE = 'Required field';
-export const ACCOUNT_EXISTS_MESSAGE = 'Email account already exists';
+export const EMAIL_ACCOUNT_EXISTS_MESSAGE = 'Email account already exists';
+export const INVALID_EMAIL_NAME_MESSAGE = 'Invalid email name';
+export const INVALID_PASS_TOO_SHORT = 'Password is too short';
+export const INVALID_REPEAT_PASS = 'Avoid repeated words and characters';
+export const INVALID_COMMON_PASS = 'Uncommon words are better';
+export const INVALID_UNSUPPORTED_PASS =
+  'Your password contains unsupported characters';

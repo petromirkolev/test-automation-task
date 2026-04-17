@@ -1,5 +1,5 @@
 import { test, expect } from '../fixtures/app-fixtures';
-import { token } from '../test-data/token';
+import { token } from '../test-data/invalid-token';
 
 test.describe('Automation Test Suite - Application page', () => {
   test('Access is allowed with valid demoToken', async ({ appPage }) => {

@@ -7,7 +7,8 @@ export class EmailAccountsPage extends EmailBasePage {
   private readonly passwordInput: Locator;
   private readonly createButton: Locator;
   private readonly successMessage: Locator;
-  private readonly errorMessage: Locator;
+  private readonly accountNameErrorMessage: Locator;
+  private readonly accountPasswordErrorMessage: Locator;
   private readonly accountRowsText: Locator;
   private readonly backButton: Locator;
 
@@ -22,15 +23,22 @@ export class EmailAccountsPage extends EmailBasePage {
     this.successMessage = this.page
       .getByTestId('box-notification')
       .getByTestId('title');
-    this.errorMessage = this.page
+    this.accountNameErrorMessage = this.page
       .getByTestId('text-input-name-label')
-      .getByTestId('text');
+      .getByTestId('validation');
+    this.accountPasswordErrorMessage = this.page
+      .getByTestId('form-password-password-label')
+      .getByTestId('validation');
     this.accountRowsText = this.page.getByTestId('text');
     this.backButton = this.page.getByTestId('box-notification-back-button');
   }
 
   async fillAccountName(name: string): Promise<void> {
     await this.accountNameInput.fill(name);
+  }
+
+  async fillAccountPassword(password: string): Promise<void> {
+    await this.passwordInput.fill(password);
   }
 
   async generatePassword(): Promise<void> {
@@ -47,12 +55,16 @@ export class EmailAccountsPage extends EmailBasePage {
     await this.createButton.click();
   }
 
-  async expectSuccessMessageContains(text: string): Promise<void> {
+  async expectSuccessMessage(text: string): Promise<void> {
     await expect(this.successMessage).toContainText(text);
   }
 
-  async expectErrorMessageContains(text: string): Promise<void> {
-    await expect(this.errorMessage).toContainText(text);
+  async expectNameErrorMessage(text: string): Promise<void> {
+    await expect(this.accountNameErrorMessage).toContainText(text);
+  }
+
+  async expectPasswordErrorMessage(text: string): Promise<void> {
+    await expect(this.accountPasswordErrorMessage).toContainText(text);
   }
 
   async expectEmailAccountCreated(
@@ -63,7 +75,7 @@ export class EmailAccountsPage extends EmailBasePage {
     expect(emailAccounts).toContain(`${emailAccount}@${selectedDomain}`);
   }
 
-  async goBack(): Promise<void> {
+  async successMessageGoBack(): Promise<void> {
     await this.backButton.click();
   }
 
@@ -75,5 +87,18 @@ export class EmailAccountsPage extends EmailBasePage {
     await this.selectDomain(domain);
     await this.fillAccountName(accountName);
     await this.generatePassword();
+    await this.createAccount();
+  }
+
+  async createAccountWithProvidedPassword(
+    domain: string,
+    accountName: string,
+    password: string,
+  ): Promise<void> {
+    await this.openDomainDropdown();
+    await this.selectDomain(domain);
+    await this.fillAccountName(accountName);
+    await this.fillAccountPassword(password);
+    await this.createAccount();
   }
 }
