@@ -1,8 +1,10 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { DEMO_JWT_TOKEN } from '../utils/constants';
+import { decodeJwtPayload } from '../utils/helpers';
 
 export class AppPage {
   readonly page: Page;
+  private readonly avatar: Locator;
   private readonly pageTitle: Locator;
   private readonly emailMenu: Locator;
   private readonly emailAccountsLink: Locator;
@@ -10,6 +12,7 @@ export class AppPage {
 
   constructor(page: Page) {
     this.page = page;
+    this.avatar = this.page.getByTestId('avatar');
     this.pageTitle = this.page.getByRole('heading', { level: 1 });
     this.emailMenu = this.page.getByTestId('navigation').getByText('Email');
     this.emailAccountsLink = this.page.getByTestId(
@@ -20,8 +23,10 @@ export class AppPage {
     );
   }
 
-  async open(): Promise<void> {
+  async open(): Promise<{ first_name: string; last_name: string }> {
     await this.page.goto(`/?demoToken=${DEMO_JWT_TOKEN}`);
+    const payload = decodeJwtPayload(DEMO_JWT_TOKEN);
+    return payload;
   }
 
   async openRaw(token: string): Promise<void> {
@@ -40,5 +45,9 @@ export class AppPage {
 
   async expectPageTitle(title: string): Promise<void> {
     await expect(this.pageTitle).toContainText(title);
+  }
+
+  async expectPageAvatar(avatar: string): Promise<void> {
+    await expect(this.avatar).toContainText(avatar);
   }
 }
