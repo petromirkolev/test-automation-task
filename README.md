@@ -13,15 +13,15 @@ It covers the 2 required scenarios from the task and includes a small amount of 
 
 ## Project structure
 
-- "tests/app.spec.ts" - Basic app access checks
-- "tests/email-accounts.spec.ts" - Email Accounts scenarios
-- "tests/email-forwarders.spec.ts" - Email Forwarders scenarios
-- "tests/token-validation.spec.ts" - Demo token payload validation checks
-- "pages/" - Page Object Models
-- "fixtures/" - Playwright fixtures for page objects
-- "utils/" - Shared constants and helpers
-- "test-data/" - Test input data
-- "test-plan.md" - Test plan and covered scenarios
+- `tests/app.spec.ts` - Basic app access checks
+- `tests/email-accounts.spec.ts` - Email Accounts scenarios
+- `tests/email-forwarders.spec.ts` - Email Forwarders scenarios
+- `tests/token-validation.spec.ts` - Demo token payload validation checks
+- `pages/` - Page Object Models
+- `fixtures/` - Playwright fixtures for page objects
+- `utils/` - Shared constants and helpers
+- `test-data/` - Test input data
+- `test-plan.md` - Test plan and covered scenarios
 
 ## Setup
 
@@ -41,7 +41,15 @@ npx playwright install
 
 "npx playwright install" is required at least once to download browser binaries.
 
-3. Run tests
+3. Create a local environment file
+
+Copy .env.example to .env.
+
+```bash
+cp .env.example .env
+```
+
+4. Run tests
 
 ### Run only the 2 assignment-required test cases (TC#1 and TC#2):
 
@@ -73,13 +81,28 @@ npm run test:headed
 npm run test:debug
 ```
 
+## Environment variables
+
+The project uses environment variables for configuration instead of hard-coded values.
+
+### Required variables:
+
+- **BASE_URL** - The target application URL
+- **DEMO_JWT_TOKEN** - The demo JWT token required by the application
+
+### Notes:
+
+- .env.example is included as a setup template
+- .env is intended for local use only and should not be committed
+- If a required variable is missing, the test run fails early with a clear error message
+
 ## Notes
 
 - The application requires a demoToken query parameter in the URL.
-- The assignment-provided demo token is used by default.
-- The token can optionally be overridden with the DEMO_JWT_TOKEN environment variable.
-- Test execution uses a clean browser context to avoid state leakage from localStorage.
-- The suite is configured to run across Chromium, Firefox, and WebKit.
+- The token is loaded from the DEMO_JWT_TOKEN environment variable
+- The target URL is loaded from the BASE_URL environment variable
+- Test execution uses a clean browser context to avoid state leakage from localStorage
+- The suite is configured to run across Chromium, Firefox, and WebKit
 
 ## Required task coverage
 

@@ -1,4 +1,12 @@
+import dotenv from 'dotenv';
+import path from 'path';
 import { defineConfig, devices } from '@playwright/test';
+
+dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+if (!process.env.BASE_URL) {
+  throw new Error('Missing BASE_URL; Copy .env.example to .env');
+}
 
 export default defineConfig({
   testDir: './tests',
@@ -8,7 +16,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : 3,
   reporter: 'html',
   use: {
-    baseURL: 'https://sqqadevs.com/',
+    baseURL: process.env.BASE_URL,
     headless: true,
     testIdAttribute: 'data-e2e',
     trace: 'on-first-retry',

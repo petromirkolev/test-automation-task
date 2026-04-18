@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { DEMO_JWT_TOKEN } from '../test-data/valid-token';
+import { demoToken } from '../test-data/valid-token';
 import { decodeJwtPayload } from '../utils/helpers';
 
 export class AppPage {
@@ -24,8 +24,8 @@ export class AppPage {
   }
 
   async open(): Promise<{ first_name: string; last_name: string }> {
-    await this.page.goto(`/?demoToken=${DEMO_JWT_TOKEN}`);
-    const payload = decodeJwtPayload(DEMO_JWT_TOKEN);
+    await this.page.goto(`/?demoToken=${demoToken}`);
+    const payload = decodeJwtPayload(demoToken);
     return payload;
   }
 
