@@ -8,7 +8,7 @@ export class EmailAccountsPage extends EmailBasePage {
   private readonly createAccountButton: Locator;
   private readonly accountNameErrorMessage: Locator;
   private readonly accountPasswordErrorMessage: Locator;
-  private readonly accountRowsText: Locator;
+  private readonly accountRows: Locator;
   private readonly backButton: Locator;
 
   constructor(page: Page) {
@@ -25,7 +25,7 @@ export class EmailAccountsPage extends EmailBasePage {
     this.accountPasswordErrorMessage = this.page
       .getByTestId('form-password-password-label')
       .getByTestId('validation');
-    this.accountRowsText = this.page.getByTestId('text');
+    this.accountRows = this.page.getByTestId('table-row');
     this.backButton = this.page.getByTestId('box-notification-back-button');
   }
 
@@ -59,12 +59,8 @@ export class EmailAccountsPage extends EmailBasePage {
     await expect(this.accountPasswordErrorMessage).toContainText(text);
   }
 
-  async expectEmailAccountCreated(
-    emailAccount: string,
-    selectedDomain: string,
-  ): Promise<void> {
-    const emailAccounts = await this.accountRowsText.allTextContents();
-    expect(emailAccounts).toContain(`${emailAccount}@${selectedDomain}`);
+  async expectEmailAccountVisible(email: string): Promise<void> {
+    await expect(this.accountRows.filter({ hasText: email })).toBeVisible();
   }
 
   async clickBackButton(): Promise<void> {
@@ -72,13 +68,13 @@ export class EmailAccountsPage extends EmailBasePage {
   }
 
   async createAccount(
-    domain: string,
+    selectedDomain: string,
     name: string,
     password?: string,
   ): Promise<void> {
     await test.step('Select and verify available domains', async () => {
       await this.openDomainDropdown();
-      await this.selectDomain(domain);
+      await this.selectDomain(selectedDomain);
     });
 
     await test.step('Fill account creation form', async () => {

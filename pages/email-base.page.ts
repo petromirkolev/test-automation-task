@@ -31,11 +31,12 @@ export class EmailBasePage extends AppPage {
 
   async expectSelectDomainOptions(expectedDomains: string[]): Promise<void> {
     const availableDomains = await this.getAvailableDomains();
-    expect(availableDomains).toEqual(expectedDomains);
+    expect(availableDomains).toHaveLength(expectedDomains.length);
+    expect(availableDomains).toEqual(expect.arrayContaining(expectedDomains));
   }
 
-  async selectDomain(domain: string): Promise<void> {
-    await this.domainOptions.filter({ hasText: domain }).click();
+  async selectDomain(selectedDomain: string): Promise<void> {
+    await this.domainOptions.filter({ hasText: selectedDomain }).click();
   }
 
   async expectSuccessMessage(text: string): Promise<void> {

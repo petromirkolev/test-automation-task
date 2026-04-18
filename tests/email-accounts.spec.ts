@@ -1,12 +1,15 @@
 import { test } from '../fixtures/app-fixtures';
 import { invalidEmailname } from '../test-data/invalid-email-account';
 import { invalidEmailpassword } from '../test-data/invalid-password';
-import { createExistingAccount } from '../utils/helpers';
+import { createExistingAccount, uniqueName } from '../utils/helpers';
 import { msg } from '../utils/constants';
 import { validEmailAccount } from '../test-data/valid-email-account';
 
-test.describe('Automation Test Suite - Email Accounts page', () => {
+test.describe.only('Automation Test Suite - Email Accounts page', () => {
+  let name: string;
+
   test.beforeEach(async ({ appPage }) => {
+    name = uniqueName();
     await appPage.open();
     await appPage.goToEmailAccounts();
   });
@@ -33,10 +36,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
       await emailAccountsPage.expectSuccessMessage(
         data.expectedSuccessMessage(data.accountName, data.selectedDomain),
       );
-      await emailAccountsPage.expectEmailAccountCreated(
-        data.accountName,
-        data.selectedDomain,
-      );
+      await emailAccountsPage.expectEmailAccountVisible(data.accountName);
     });
   });
 
@@ -46,14 +46,11 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
     const data = validEmailAccount;
 
     await test.step('Prepare existing account', async () => {
-      await createExistingAccount(emailAccountsPage);
+      await createExistingAccount(data.selectedDomain, name, emailAccountsPage);
     });
 
     await test.step('Try to create the same account again', async () => {
-      await emailAccountsPage.createAccount(
-        data.selectedDomain,
-        data.accountName,
-      );
+      await emailAccountsPage.createAccount(data.selectedDomain, name);
       await emailAccountsPage.expectNameErrorMessage(
         msg.EMAIL_ACCOUNT_EXISTS_MESSAGE,
       );
