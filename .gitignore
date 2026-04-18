@@ -9,6 +9,3 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 
-# Allure
-allure-results/
-allure-report/
