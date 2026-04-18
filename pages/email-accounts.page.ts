@@ -47,7 +47,7 @@ export class EmailAccountsPage extends EmailBasePage {
     ).toBeGreaterThanOrEqual(length);
   }
 
-  async clickCreateAccountBtn(): Promise<void> {
+  async clickCreateAccountButton(): Promise<void> {
     await this.createAccountButton.click();
   }
 
@@ -88,7 +88,7 @@ export class EmailAccountsPage extends EmailBasePage {
     });
 
     await test.step('Submit account creation form', async () => {
-      await this.clickCreateAccountBtn();
+      await this.clickCreateAccountButton();
     });
   }
 }

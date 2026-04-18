@@ -24,13 +24,14 @@ export class EmailBasePage extends AppPage {
   }
 
   async getAvailableDomains(): Promise<string[]> {
-    return (await this.domainOptions.allTextContents()).map((option) =>
-      option.trim(),
+    return (await this.domainOptions.allTextContents()).map((domainOption) =>
+      domainOption.trim(),
     );
   }
 
   async expectSelectDomainOptions(expectedDomains: string[]): Promise<void> {
     const availableDomains = await this.getAvailableDomains();
+
     expect(availableDomains).toHaveLength(expectedDomains.length);
     expect(availableDomains).toEqual(expect.arrayContaining(expectedDomains));
   }

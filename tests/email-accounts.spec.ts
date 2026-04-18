@@ -5,7 +5,7 @@ import { createExistingAccount, uniqueName } from '../utils/helpers';
 import { msg } from '../utils/constants';
 import { validEmailAccount } from '../test-data/valid-email-account';
 
-test.describe.only('Automation Test Suite - Email Accounts page', () => {
+test.describe('Automation Test Suite - Email Accounts page', () => {
   let name: string;
 
   test.beforeEach(async ({ appPage }) => {

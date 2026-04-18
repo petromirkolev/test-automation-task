@@ -1,4 +1,4 @@
-import { Page, Locator, test, expect } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { EmailBasePage } from './email-base.page';
 
 export class EmailForwardersPage extends EmailBasePage {
@@ -52,13 +52,13 @@ export class EmailForwardersPage extends EmailBasePage {
   }
 
   async createForwarder(
-    domain?: string,
+    selectedDomain?: string,
     from?: string,
     to?: string,
   ): Promise<void> {
-    if (domain) {
+    if (selectedDomain) {
       await this.openDomainDropdown();
-      await this.selectDomain(domain);
+      await this.selectDomain(selectedDomain);
     }
     if (from) {
       await this.fillForwardFromName(from);

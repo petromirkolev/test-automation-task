@@ -33,13 +33,17 @@ export class AppPage {
     await this.page.goto(`/?demoToken=${token}`);
   }
 
-  async goToEmailAccounts(): Promise<void> {
+  private async openEmailMenu(): Promise<void> {
     await this.emailMenu.click();
+  }
+
+  async goToEmailAccounts(): Promise<void> {
+    await this.openEmailMenu();
     await this.emailAccountsLink.click();
   }
 
   async goToEmailForwarders(): Promise<void> {
-    await this.emailMenu.click();
+    await this.openEmailMenu();
     await this.emailForwardersLink.click();
   }
 
