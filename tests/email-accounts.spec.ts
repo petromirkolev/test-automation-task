@@ -29,7 +29,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
       await emailAccountsPage.fillAccountName(data.accountName);
       await emailAccountsPage.generatePassword();
       await emailAccountsPage.expectPasswordPopulated();
-      await emailAccountsPage.clickCreateAccountBtn();
+      await emailAccountsPage.clickCreateAccountButton();
     });
 
     await test.step('Verify successful account creation', async () => {
