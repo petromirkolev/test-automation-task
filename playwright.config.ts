@@ -16,10 +16,8 @@ export default defineConfig({
   workers: process.env.CI ? 1 : 3,
   reporter: [
     ['html'],
-    [
-      'allure-playwright',
-      { outputFolder: 'allure-results', suiteTitle: false },
-    ],
+    ['list'],
+    ['json', { outputFile: 'test-results/results.json' }],
   ],
   use: {
     baseURL: process.env.BASE_URL,

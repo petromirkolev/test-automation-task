@@ -2,8 +2,6 @@
 
 [![Playwright Tests](https://github.com/petromirkolev/test-automation-task/actions/workflows/playwright.yml/badge.svg)](https://github.com/petromirkolev/test-automation-task/actions/workflows/playwright.yml)
 
-[Allure test report](https://petromirkolev.github.io/test-automation-task)
-
 This repository contains a Playwright + TypeScript automation solution for the demo hosting services web application provided in the assignment.
 
 It covers the 2 required scenarios from the task and includes a small amount of focused additional validation coverage around the same features.
@@ -62,34 +60,40 @@ cp .env.example .env
 
 4. Run tests
 
-### Run only the 2 assignment-required test cases (TC#1 and TC#2)
+### Run only the 2 assignment-required test cases (TC#1 and TC#2):
 
 ```bash
 npm run test:required
 ```
 
-### Run the full suite
+### Run the full suite:
 
 ```bash
 npm test
 ```
 
-### Run tests with Playwright UI
+### Run tests with Playwright UI:
 
 ```bash
 npm run test:ui
 ```
 
-### Run tests in headed mode
+### Run tests in headed mode:
 
 ```bash
 npm run test:headed
 ```
 
-### Run tests in debug mode
+### Run tests in debug mode:
 
 ```bash
 npm run test:debug
+```
+
+### After running the tests, open the HTML report:
+
+```bash
+npx playwright show-report
 ```
 
 ## Environment variables
