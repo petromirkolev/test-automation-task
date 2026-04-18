@@ -2,6 +2,8 @@
 
 [![Playwright Tests](https://github.com/petromirkolev/test-automation-task/actions/workflows/playwright.yml/badge.svg)](https://github.com/petromirkolev/test-automation-task/actions/workflows/playwright.yml)
 
+[Allure test report](https://petromirkolev.github.io/test-automation-task)
+
 This repository contains a Playwright + TypeScript automation solution for the demo hosting services web application provided in the assignment.
 
 It covers the 2 required scenarios from the task and includes a small amount of focused additional validation coverage around the same features.
