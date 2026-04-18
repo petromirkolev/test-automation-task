@@ -72,23 +72,16 @@ export class EmailAccountsPage extends EmailBasePage {
     name: string,
     password?: string,
   ): Promise<void> {
-    await test.step('Select and verify available domains', async () => {
-      await this.openDomainDropdown();
-      await this.selectDomain(selectedDomain);
-    });
+    await this.openDomainDropdown();
+    await this.selectDomain(selectedDomain);
 
-    await test.step('Fill account creation form', async () => {
-      await this.fillAccountName(name);
+    await this.fillAccountName(name);
+    if (password !== undefined) {
+      await this.fillAccountPassword(password);
+    } else {
+      await this.generatePassword();
+    }
 
-      if (password !== undefined) {
-        await this.fillAccountPassword(password);
-      } else {
-        await this.generatePassword();
-      }
-    });
-
-    await test.step('Submit account creation form', async () => {
-      await this.clickCreateAccountButton();
-    });
+    await this.clickCreateAccountButton();
   }
 }
