@@ -8,7 +8,7 @@ export const invalidEmailpassword = {
     value: '',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,
-    errorMessage: msg.REQUIRED_FIELD_MESSAGE,
+    errorMessage: msg.REQUIRED_FIELD,
   },
 
   whiteSpacedPassword: {

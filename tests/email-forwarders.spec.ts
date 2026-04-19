@@ -3,7 +3,8 @@ import { validEmailForwarder } from '../test-data/valid-email-forwarder';
 import {
   invalidEmailAddress,
   invalidEmailname,
-} from '../test-data/invalid-email-account';
+} from '../test-data/invalid-email';
+import { msg } from '../utils/constants';
 
 test.describe('Automation Test Suite - Email Forwarders page', () => {
   test.beforeEach(async ({ appPage }) => {
@@ -28,9 +29,7 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     });
 
     await test.step('Verify required field error message', async () => {
-      await emailForwardersPage.expectForwardFromFieldError(
-        data.expectedErrorMessage,
-      );
+      await emailForwardersPage.expectForwardFromFieldError(msg.REQUIRED_FIELD);
     });
   });
 
@@ -48,7 +47,9 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     });
 
     await test.step('Verify successful email forwarder creation', async () => {
-      await emailForwardersPage.expectSuccessMessage(data.fromName);
+      await emailForwardersPage.expectSuccessMessage(
+        data.expectedSuccessMessage(data.fromName, data.selectedDomain),
+      );
     });
   });
 
@@ -60,7 +61,6 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
         invalidEmailname[key];
       test(testDescription, async ({ emailForwardersPage }) => {
         await emailForwardersPage.createForwarder(selectedDomain, value);
-
         await emailForwardersPage.expectForwardFromFieldError(errorMessage);
       });
     }
@@ -78,7 +78,6 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
           validEmailForwarder.fromName,
           value,
         );
-
         await emailForwardersPage.expectForwardToFieldError(errorMessage);
       });
     }
