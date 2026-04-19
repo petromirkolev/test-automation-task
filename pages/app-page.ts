@@ -23,6 +23,13 @@ export class AppPage {
     );
   }
 
+  async clearStorage(): Promise<void> {
+    await this.page.goto('/');
+    await this.page.evaluate(() => {
+      localStorage.clear();
+    });
+  }
+
   async open(): Promise<{ first_name: string; last_name: string }> {
     await this.page.goto(`/?demoToken=${demoToken}`);
     const payload = decodeJwtPayload(demoToken);

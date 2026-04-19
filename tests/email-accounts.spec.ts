@@ -10,6 +10,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
 
   test.beforeEach(async ({ appPage }) => {
     name = uniqueName();
+    await appPage.clearStorage();
     await appPage.open();
     await appPage.goToEmailAccounts();
   });

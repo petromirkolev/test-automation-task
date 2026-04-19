@@ -30,7 +30,7 @@ It covers the 2 required scenarios from the task and includes a small amount of 
 - **Stable selector strategy** is preferred, using reliable "data-e2e" locators instead of brittle DOM-dependent selectors
 - **Environment variables** are used for base URL and demo token configuration instead of hard-coded values
 - **Focused additional coverage** was added only around the same core assignment features, to show validation thinking without overscoping
-- **Clean browser context** is used to avoid state leakage between tests
+- **Local storage cleanup** is used to avoid state leakage between tests
 
 ## Setup
 
@@ -48,7 +48,7 @@ npm install
 npx playwright install
 ```
 
-"npx playwright install" is required at least once to download browser binaries.
+`npx playwright install` is required at least once to download browser binaries.
 
 3. Create a local environment file
 
@@ -111,7 +111,7 @@ The project uses environment variables for configuration instead of hard-coded v
 - `.env` is intended for local use only and should not be committed
 - If a required variable is missing, the test run fails early with a clear error message
 
-## Notes
+## Execution notes
 
 - The application requires a `demoToken` query parameter in the URL.
 - The token is loaded from the `DEMO_JWT_TOKEN` environment variable
@@ -138,7 +138,7 @@ Covered flow:
 - Verify account creation success message
 - Verify the created account appears in the email accounts list
 
-### TC#2 Add an empty email Forwarder
+### TC#2 Add an empty email forwarder
 
 Implemented in `tests/email-forwarders.spec.ts`
 
@@ -157,8 +157,15 @@ Covered flow:
 In addition to the 2 required scenarios, the suite includes a few focused validation checks around the same features, such as:
 
 - App access checks
-- Demo token payload validation
+- Basic demo token payload checks
 - Duplicate email account validation
 - Invalid email account name checks
 - Invalid password checks
 - Additional forwarder validation checks
+
+## Challenges and decisions
+
+- The forwarder recipient field is a custom dropdown, not a plain input, so tests open the control first and then fill the inner input.
+- The app stores demo data in `localStorage`, so tests clear browser state before app entry to avoid state leakage between scenarios.
+- Some `data-e2e` values are reused across the UI, so selectors were kept stable by scoping locators carefully.
+- Additional coverage was kept intentionally narrow and close to the assignment scope to avoid overscoping.

@@ -7,6 +7,7 @@ import {
 
 test.describe('Automation Test Suite - Email Forwarders page', () => {
   test.beforeEach(async ({ appPage }) => {
+    await appPage.clearStorage();
     await appPage.open();
     await appPage.goToEmailForwarders();
   });

@@ -9,6 +9,13 @@ export const invalidEmailname = {
     errorMessage: msg.REQUIRED_FIELD_MESSAGE,
   },
 
+  whiteSpacedName: {
+    value: '     ',
+    selectedDomain: domains.selectedDomain,
+    testDescription: 'Invalid white-space email name',
+    errorMessage: msg.REQUIRED_FIELD_MESSAGE,
+  },
+
   nameWithSpecialCharacters: {
     value: 'test#account',
     selectedDomain: domains.selectedDomain,
@@ -42,35 +49,56 @@ export const invalidEmailAddress = {
   emptyAddress: {
     value: '',
     selectedDomain: domains.selectedDomain,
-    testDescription: 'Invalid empty to email address',
+    testDescription: 'Invalid empty email address',
+    errorMessage: msg.REQUIRED_FIELD_MESSAGE,
+  },
+
+  emptyWhiteSpacedAddress: {
+    value: '     ',
+    selectedDomain: domains.selectedDomain,
+    testDescription: 'Invalid white-spaced email address',
     errorMessage: msg.REQUIRED_FIELD_MESSAGE,
   },
 
   addressNoName: {
     value: '@test.com',
     selectedDomain: domains.selectedDomain,
-    testDescription: 'Invalid email name with special characters',
+    testDescription: 'Invalid email address with special characters',
     errorMessage: msg.INVALID_EMAIL_IN_LIST,
   },
 
   addressNoExt: {
-    value: ' test_account@test',
+    value: ' test_account@test.com',
     selectedDomain: domains.selectedDomain,
-    testDescription: 'Invalid email name with white space before',
+    testDescription: 'Invalid email address with white space before',
     errorMessage: msg.INVALID_EMAIL_IN_LIST,
   },
 
   addressWhiteSpace: {
     value: 'test account@test.com',
     selectedDomain: domains.selectedDomain,
-    testDescription: 'Invalid email name with white space in the middle',
+    testDescription: 'Invalid email address with white space in the middle',
     errorMessage: msg.INVALID_EMAIL_IN_LIST,
   },
 
   addressNoAtSign: {
     value: 'test_accounttest.com ',
     selectedDomain: domains.selectedDomain,
-    testDescription: 'Invalid email name with white space after',
+    testDescription: 'Invalid email address with white space after',
+    errorMessage: msg.INVALID_EMAIL_IN_LIST,
+  },
+
+  addressDoubleAtSign: {
+    value: 'test_account@@test.com ',
+    selectedDomain: domains.selectedDomain,
+    testDescription: 'Invalid email address with double at sign',
+    errorMessage: msg.INVALID_EMAIL_IN_LIST,
+  },
+
+  addressWithComma: {
+    value: 'test_account@test,com ',
+    selectedDomain: domains.selectedDomain,
+    testDescription: 'Invalid email address with comma',
     errorMessage: msg.INVALID_EMAIL_IN_LIST,
   },
 };
