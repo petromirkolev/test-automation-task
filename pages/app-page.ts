@@ -2,17 +2,13 @@ import { Page, Locator, expect } from '@playwright/test';
 import { demoToken } from '../test-data';
 
 export class AppPage {
-  readonly page: Page;
-  private readonly userAvatar: Locator;
-  private readonly pageTitle: Locator;
+  protected readonly page: Page;
   private readonly emailMenu: Locator;
   private readonly emailAccountsLink: Locator;
   private readonly emailForwardersLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.userAvatar = this.page.getByTestId('avatar');
-    this.pageTitle = this.page.getByRole('heading', { level: 1 });
     this.emailMenu = this.page.getByTestId('navigation').getByText('Email');
     this.emailAccountsLink = this.page.getByTestId(
       'navigation-list-item-email',
@@ -31,31 +27,16 @@ export class AppPage {
 
   async open(): Promise<void> {
     await this.page.goto(`/?demoToken=${demoToken}`);
-  }
-
-  async openRaw(rawToken: string): Promise<void> {
-    await this.page.goto(`/?demoToken=${rawToken}`);
-  }
-
-  private async openEmailMenu(): Promise<void> {
-    await this.emailMenu.click();
+    await expect(this.page).toHaveTitle(/QA Automation Tools/);
   }
 
   async goToEmailAccounts(): Promise<void> {
-    await this.openEmailMenu();
+    await this.emailMenu.click();
     await this.emailAccountsLink.click();
   }
 
   async goToEmailForwarders(): Promise<void> {
-    await this.openEmailMenu();
+    await this.emailMenu.click();
     await this.emailForwardersLink.click();
-  }
-
-  async expectPageTitle(title: string): Promise<void> {
-    await expect(this.pageTitle).toContainText(title);
-  }
-
-  async expectPageAvatar(userInitials: string): Promise<void> {
-    await expect(this.userAvatar).toContainText(userInitials);
   }
 }

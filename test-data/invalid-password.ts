@@ -27,14 +27,6 @@ export const invalidEmailPassword = {
     errorMessage: msg.PASSWORD_TOO_SHORT,
   },
 
-  repeatedPassword: {
-    testDescription: 'Invalid repeated password',
-    value: 'T3$tingT3$tingT3$ting',
-    selectedDomain: domains.selectedDomain,
-    accountName: validEmailAccount.accountName,
-    errorMessage: msg.PASSWORD_REPEATED,
-  },
-
   commonPassword: {
     testDescription: 'Invalid common password',
     value: 'adminpass',

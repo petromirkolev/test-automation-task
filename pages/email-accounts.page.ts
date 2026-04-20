@@ -37,7 +37,7 @@ export class EmailAccountsPage extends EmailBasePage {
     await this.emailPasswordInput.fill(password);
   }
 
-  async generatePassword(): Promise<void> {
+  async clickGeneratePasswordButton(): Promise<void> {
     await this.generatePasswordButton.click();
   }
 
@@ -59,8 +59,13 @@ export class EmailAccountsPage extends EmailBasePage {
     await expect(this.accountPasswordErrorMessage).toContainText(text);
   }
 
-  async expectEmailAccountVisible(email: string): Promise<void> {
-    await expect(this.accountRows.filter({ hasText: email })).toBeVisible();
+  async expectEmailAccountVisible(
+    email: string,
+    selectedDomain: string,
+  ): Promise<void> {
+    await expect(
+      this.accountRows.filter({ hasText: `${email}@${selectedDomain}` }),
+    ).toBeVisible();
   }
 
   async clickBackButton(): Promise<void> {
@@ -79,7 +84,7 @@ export class EmailAccountsPage extends EmailBasePage {
     if (password !== undefined) {
       await this.fillAccountPassword(password);
     } else {
-      await this.generatePassword();
+      await this.clickGeneratePasswordButton();
     }
 
     await this.clickCreateAccountButton();

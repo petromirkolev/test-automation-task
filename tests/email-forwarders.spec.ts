@@ -16,16 +16,16 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
   test('Add empty email forwarder and verify required field error @required', async ({
     emailForwardersPage,
   }) => {
-    const data = validEmailForwarder;
+    const { expectedDomains, selectedDomain } = validEmailForwarder;
 
     await test.step('Select and verify available domains', async () => {
       await emailForwardersPage.openDomainDropdown();
-      await emailForwardersPage.expectSelectDomainOptions(data.expectedDomains);
-      await emailForwardersPage.selectDomain(data.selectedDomain);
+      await emailForwardersPage.expectSelectDomainOptions(expectedDomains);
+      await emailForwardersPage.selectDomain(selectedDomain);
     });
 
-    await test.step('Create email forwarder', async () => {
-      await emailForwardersPage.createForwarder();
+    await test.step('Submit forwarder form with empty inputs', async () => {
+      await emailForwardersPage.clickCreateEmailForwarderButton();
     });
 
     await test.step('Verify required field error message', async () => {
@@ -36,19 +36,20 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
   test('Add email forwarder with valid data succeeds', async ({
     emailForwardersPage,
   }) => {
-    const data = validEmailForwarder;
+    const { selectedDomain, fromName, toEmailAddress, expectedSuccessMessage } =
+      validEmailForwarder;
 
     await test.step('Fill and submit email forwarder form', async () => {
       await emailForwardersPage.createForwarder(
-        data.selectedDomain,
-        data.fromName,
-        data.toEmailAddress,
+        selectedDomain,
+        fromName,
+        toEmailAddress,
       );
     });
 
     await test.step('Verify successful email forwarder creation', async () => {
       await emailForwardersPage.expectSuccessMessage(
-        data.expectedSuccessMessage(data.fromName, data.selectedDomain),
+        expectedSuccessMessage(fromName, selectedDomain),
       );
     });
   });

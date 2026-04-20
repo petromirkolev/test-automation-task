@@ -20,44 +20,48 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
   test('Create email account with valid input succeeds @required', async ({
     emailAccountsPage,
   }) => {
-    const data = validEmailAccount;
+    const {
+      accountName,
+      expectedDomains,
+      selectedDomain,
+      expectedSuccessMessage,
+    } = validEmailAccount;
 
     await test.step('Select and verify available domains', async () => {
       await emailAccountsPage.openDomainDropdown();
-      await emailAccountsPage.expectSelectDomainOptions(data.expectedDomains);
-      await emailAccountsPage.selectDomain(data.selectedDomain);
+      await emailAccountsPage.expectSelectDomainOptions(expectedDomains);
+      await emailAccountsPage.selectDomain(selectedDomain);
     });
 
-    await test.step('Create email account', async () => {
-      await emailAccountsPage.fillAccountName(data.accountName);
-      await emailAccountsPage.generatePassword();
+    await test.step('Fill account name, generate password and submit', async () => {
+      await emailAccountsPage.fillAccountName(accountName);
+      await emailAccountsPage.clickGeneratePasswordButton();
       await emailAccountsPage.expectPasswordPopulated();
       await emailAccountsPage.clickCreateAccountButton();
     });
 
     await test.step('Verify successful account creation', async () => {
       await emailAccountsPage.expectSuccessMessage(
-        data.expectedSuccessMessage(data.accountName, data.selectedDomain),
+        expectedSuccessMessage(accountName, selectedDomain),
       );
-      await emailAccountsPage.expectEmailAccountVisible(data.accountName);
+      await emailAccountsPage.expectEmailAccountVisible(
+        accountName,
+        selectedDomain,
+      );
     });
   });
 
   test('Create duplicate email account is rejected', async ({
     emailAccountsPage,
   }) => {
-    const data = validEmailAccount;
+    const { selectedDomain } = validEmailAccount;
 
     await test.step('Prepare existing account', async () => {
-      await help.createExistingAccount(
-        data.selectedDomain,
-        name,
-        emailAccountsPage,
-      );
+      await help.createExistingAccount(selectedDomain, name, emailAccountsPage);
     });
 
     await test.step('Try to create the same account again', async () => {
-      await emailAccountsPage.createAccount(data.selectedDomain, name);
+      await emailAccountsPage.createAccount(selectedDomain, name);
       await emailAccountsPage.expectNameErrorMessage(msg.EMAIL_ACCOUNT_EXISTS);
     });
   });
