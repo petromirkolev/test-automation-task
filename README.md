@@ -120,7 +120,7 @@ The project uses environment variables for configuration instead of hard-coded v
 - The application requires a `demoToken` query parameter in the URL.
 - The token is loaded from the `DEMO_JWT_TOKEN` environment variable
 - The target URL is loaded from the `BASE_URL` environment variable
-- Test execution uses a clean browser context to avoid state leakage from localStorage
+- Local storage is cleared before application entry to avoid state leakage between tests.
 - The suite is configured to run across Chromium, Firefox, and WebKit
 
 ## Required task coverage
