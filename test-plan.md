@@ -2,7 +2,7 @@
 
 ## Objective
 
-Provide Playwright automation for the required assignment scenarios and a small set of additional relevant validation checks for the same feature area.
+Provide Playwright automation for the required assignment scenarios and a small set of additional validation checks in the same feature area.
 
 ## Scope
 
@@ -13,7 +13,6 @@ Provide Playwright automation for the required assignment scenarios and a small 
 
 ### Additional scope
 
-- Application access validation
 - Email account validation checks
 - Email forwarder validation checks
 
@@ -30,15 +29,7 @@ Provide Playwright automation for the required assignment scenarios and a small 
 
 ## Covered automated test cases
 
-## 1. Application access and demo token validation
-
-### APP-01 Open application with valid demo token
-
-**Purpose:** Verify the application loads successfully when opened with the provided demo token.
-
----
-
-## 2. Email Accounts
+## 1. Email Accounts
 
 ### EA-01 Create email account with valid input succeeds
 
@@ -62,7 +53,7 @@ Provide Playwright automation for the required assignment scenarios and a small 
 
 ---
 
-## 3. Email Forwarders
+## 2. Email Forwarders
 
 ### EF-01 Add empty email forwarder and verify required field error
 
