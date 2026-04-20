@@ -1,10 +1,10 @@
 import { test } from '../fixtures/app-fixtures';
-import { validEmailForwarder } from '../test-data/valid-email-forwarder';
-import {
-  invalidEmailAddress,
-  invalidEmailname,
-} from '../test-data/invalid-email';
 import { msg } from '../utils/constants';
+import {
+  invalidEmailName,
+  invalidEmailAddress,
+  validEmailForwarder,
+} from '../test-data';
 
 test.describe('Automation Test Suite - Email Forwarders page', () => {
   test.beforeEach(async ({ appPage }) => {
@@ -54,11 +54,11 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
   });
 
   test.describe('Create email forwarder with invalid from name', () => {
-    for (const key of Object.keys(invalidEmailname) as Array<
-      keyof typeof invalidEmailname
+    for (const key of Object.keys(invalidEmailName) as Array<
+      keyof typeof invalidEmailName
     >) {
       const { value, selectedDomain, testDescription, errorMessage } =
-        invalidEmailname[key];
+        invalidEmailName[key];
       test(testDescription, async ({ emailForwardersPage }) => {
         await emailForwardersPage.createForwarder(selectedDomain, value);
         await emailForwardersPage.expectForwardFromFieldError(errorMessage);

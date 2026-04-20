@@ -1,4 +1,4 @@
-# Test Plan – Demo Hosting App Automation Task
+# Test Plan – Demo Hosting Application Automation Task
 
 ## Objective
 
@@ -11,18 +11,18 @@ Provide Playwright automation for the required assignment scenarios and a small 
 - TC#1 Add an email account
 - TC#2 Add an empty email forwarder
 
-### Additional focused scope
+### Additional scope
 
-- Application access and demo token validation
+- Application access validation
 - Email account validation checks
-- Forwarder validation checks
+- Email forwarder validation checks
 
 ---
 
 ## Environment
 
-- Application: Demo Hosting App
-- Entry: URL with "demoToken" query parameter
+- Application: Demo Hosting Application
+- Entry: URL with `demoToken` query parameter
 - Test framework: Playwright
 - Language: TypeScript
 
@@ -35,12 +35,6 @@ Provide Playwright automation for the required assignment scenarios and a small 
 ### APP-01 Open application with valid demo token
 
 **Purpose:** Verify the application loads successfully when opened with the provided demo token.
-
-### APP-02 Invalid demo token handling
-
-**Purpose:** Verify application behavior when "demoToken" is not valid.
-
-**Note:** Data-driven invalid token checks are covered in "tests/app.spec.ts".
 
 ---
 
@@ -90,6 +84,6 @@ Provide Playwright automation for the required assignment scenarios and a small 
 
 - Playwright + TypeScript project
 - Automated tests for the required scenarios
-- Focused additional validation coverage
+- Additional validation coverage
 - README with setup and execution steps
 - This test plan

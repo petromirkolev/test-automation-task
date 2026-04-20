@@ -1,7 +1,7 @@
 import { msg } from '../utils/constants';
-import { domains } from './domains-list';
+import { domains } from './domains';
 
-export const invalidEmailname = {
+export const invalidEmailName = {
   emptyName: {
     value: '',
     selectedDomain: domains.selectedDomain,
@@ -12,7 +12,7 @@ export const invalidEmailname = {
   whiteSpacedName: {
     value: '     ',
     selectedDomain: domains.selectedDomain,
-    testDescription: 'Invalid white-space email name',
+    testDescription: 'Invalid email name with white spaces',
     errorMessage: msg.INVALID_EMAIL_NAME,
   },
 
@@ -33,7 +33,7 @@ export const invalidEmailname = {
   nameWithWhiteSpaceMiddle: {
     value: 'test account',
     selectedDomain: domains.selectedDomain,
-    testDescription: 'Invalid email name with white space in the middle',
+    testDescription: 'Invalid email name with white space within',
     errorMessage: msg.INVALID_EMAIL_NAME,
   },
 
@@ -56,7 +56,7 @@ export const invalidEmailAddress = {
   emptyWhiteSpacedAddress: {
     value: '     ',
     selectedDomain: domains.selectedDomain,
-    testDescription: 'Invalid white-spaced email address',
+    testDescription: 'Invalid email address with white spaces',
     errorMessage: msg.INVALID_EMAIL_IN_LIST,
   },
 
@@ -70,14 +70,21 @@ export const invalidEmailAddress = {
   addressWhiteSpace: {
     value: 'test account@test.com',
     selectedDomain: domains.selectedDomain,
-    testDescription: 'Invalid email address with white space',
+    testDescription: 'Invalid email address with white space within',
+    errorMessage: msg.INVALID_EMAIL_IN_LIST,
+  },
+
+  addressNoAtSign: {
+    value: 'test_accounttest.com ',
+    selectedDomain: domains.selectedDomain,
+    testDescription: 'Invalid email address without @ sign',
     errorMessage: msg.INVALID_EMAIL_IN_LIST,
   },
 
   addressDoubleAtSign: {
     value: 'test_account@@test.com ',
     selectedDomain: domains.selectedDomain,
-    testDescription: 'Invalid email address with double at sign',
+    testDescription: 'Invalid email address with double @ sign',
     errorMessage: msg.INVALID_EMAIL_IN_LIST,
   },
 

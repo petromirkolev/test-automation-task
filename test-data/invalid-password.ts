@@ -1,8 +1,8 @@
 import { msg } from '../utils/constants';
-import { domains } from './domains-list';
+import { domains } from './domains';
 import { validEmailAccount } from './valid-email-account';
 
-export const invalidEmailpassword = {
+export const invalidEmailPassword = {
   emptyPassword: {
     testDescription: 'Invalid empty password',
     value: '',
@@ -12,7 +12,7 @@ export const invalidEmailpassword = {
   },
 
   whiteSpacedPassword: {
-    testDescription: 'Invalid white-spaced password',
+    testDescription: 'Invalid password with white spaces',
     value: '      ',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,

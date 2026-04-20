@@ -1,9 +1,11 @@
 import { test } from '../fixtures/app-fixtures';
-import { invalidEmailname } from '../test-data/invalid-email';
-import { invalidEmailpassword } from '../test-data/invalid-password';
 import { help } from '../utils/helpers';
 import { msg } from '../utils/constants';
-import { validEmailAccount } from '../test-data/valid-email-account';
+import {
+  invalidEmailName,
+  invalidEmailPassword,
+  validEmailAccount,
+} from '../test-data';
 
 test.describe('Automation Test Suite - Email Accounts page', () => {
   let name: string;
@@ -61,11 +63,11 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
   });
 
   test.describe('Create email account with invalid name', () => {
-    for (const key of Object.keys(invalidEmailname) as Array<
-      keyof typeof invalidEmailname
+    for (const key of Object.keys(invalidEmailName) as Array<
+      keyof typeof invalidEmailName
     >) {
       const { value, selectedDomain, testDescription, errorMessage } =
-        invalidEmailname[key];
+        invalidEmailName[key];
       test(testDescription, async ({ emailAccountsPage }) => {
         await emailAccountsPage.createAccount(selectedDomain, value);
         await emailAccountsPage.expectNameErrorMessage(errorMessage);
@@ -74,8 +76,8 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
   });
 
   test.describe('Create email account with invalid password', () => {
-    for (const key of Object.keys(invalidEmailpassword) as Array<
-      keyof typeof invalidEmailpassword
+    for (const key of Object.keys(invalidEmailPassword) as Array<
+      keyof typeof invalidEmailPassword
     >) {
       const {
         accountName,
@@ -83,7 +85,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
         value,
         testDescription,
         errorMessage,
-      } = invalidEmailpassword[key];
+      } = invalidEmailPassword[key];
       test(testDescription, async ({ emailAccountsPage }) => {
         await emailAccountsPage.createAccount(
           selectedDomain,

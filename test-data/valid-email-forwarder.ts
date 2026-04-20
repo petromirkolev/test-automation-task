@@ -1,4 +1,4 @@
-import { domains } from './domains-list';
+import { domains } from './domains';
 import { validEmailAccount } from './valid-email-account';
 
 export const validEmailForwarder = {

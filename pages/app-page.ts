@@ -1,6 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { demoToken } from '../test-data/valid-token';
-import { help } from '../utils/helpers';
+import { demoToken } from '../test-data';
 
 export class AppPage {
   readonly page: Page;
@@ -30,14 +29,12 @@ export class AppPage {
     });
   }
 
-  async open(): Promise<{ first_name: string; last_name: string }> {
+  async open(): Promise<void> {
     await this.page.goto(`/?demoToken=${demoToken}`);
-    const payload = help.decodeJwtPayload(demoToken);
-    return payload;
   }
 
-  async openRaw(token: string): Promise<void> {
-    await this.page.goto(`/?demoToken=${token}`);
+  async openRaw(rawToken: string): Promise<void> {
+    await this.page.goto(`/?demoToken=${rawToken}`);
   }
 
   private async openEmailMenu(): Promise<void> {
@@ -58,7 +55,7 @@ export class AppPage {
     await expect(this.pageTitle).toContainText(title);
   }
 
-  async expectPageAvatar(avatar: string): Promise<void> {
-    await expect(this.userAvatar).toContainText(avatar);
+  async expectPageAvatar(userInitials: string): Promise<void> {
+    await expect(this.userAvatar).toContainText(userInitials);
   }
 }
