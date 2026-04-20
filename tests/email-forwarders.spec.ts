@@ -1,5 +1,5 @@
 import { test } from '../fixtures/app-fixtures';
-import { msg } from '../utils/constants';
+import { messages } from '../utils/messages';
 import {
   invalidEmailName,
   invalidEmailAddress,
@@ -8,7 +8,6 @@ import {
 
 test.describe('Automation Test Suite - Email Forwarders page', () => {
   test.beforeEach(async ({ appPage }) => {
-    await appPage.clearStorage();
     await appPage.open();
     await appPage.goToEmailForwarders();
   });
@@ -29,7 +28,9 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     });
 
     await test.step('Verify required field error message', async () => {
-      await emailForwardersPage.expectForwardFromFieldError(msg.REQUIRED_FIELD);
+      await emailForwardersPage.expectForwardFromFieldError(
+        messages.REQUIRED_FIELD,
+      );
     });
   });
 

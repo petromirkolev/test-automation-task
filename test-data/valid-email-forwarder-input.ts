@@ -1,5 +1,5 @@
 import { domains } from './domains';
-import { validEmailAccount } from './valid-email-account';
+import { validEmailAccount } from './valid-email-account-input';
 
 export const validEmailForwarder = {
   fromName: validEmailAccount.accountName,

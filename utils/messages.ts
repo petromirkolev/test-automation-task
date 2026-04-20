@@ -1,4 +1,4 @@
-export const msg = {
+export const messages = {
   SITE_TOOLS_TEXT: 'Site Tools by SiteGround',
 
   REQUIRED_FIELD: 'Required field',

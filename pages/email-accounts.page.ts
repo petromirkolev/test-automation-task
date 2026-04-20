@@ -85,6 +85,7 @@ export class EmailAccountsPage extends EmailBasePage {
       await this.fillAccountPassword(password);
     } else {
       await this.clickGeneratePasswordButton();
+      await this.expectPasswordPopulated();
     }
 
     await this.clickCreateAccountButton();

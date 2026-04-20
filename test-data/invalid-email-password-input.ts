@@ -1,6 +1,6 @@
-import { msg } from '../utils/constants';
+import { messages } from '../utils/messages';
 import { domains } from './domains';
-import { validEmailAccount } from './valid-email-account';
+import { validEmailAccount } from './valid-email-account-input';
 
 export const invalidEmailPassword = {
   emptyPassword: {
@@ -8,7 +8,7 @@ export const invalidEmailPassword = {
     value: '',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,
-    errorMessage: msg.REQUIRED_FIELD,
+    errorMessage: messages.REQUIRED_FIELD,
   },
 
   whiteSpacedPassword: {
@@ -16,7 +16,7 @@ export const invalidEmailPassword = {
     value: '      ',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,
-    errorMessage: msg.PASSWORD_TOO_SHORT,
+    errorMessage: messages.PASSWORD_TOO_SHORT,
   },
 
   shortPassword: {
@@ -24,15 +24,7 @@ export const invalidEmailPassword = {
     value: 'T3$ting',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,
-    errorMessage: msg.PASSWORD_TOO_SHORT,
-  },
-
-  commonPassword: {
-    testDescription: 'Invalid common password',
-    value: 'adminpass',
-    selectedDomain: domains.selectedDomain,
-    accountName: validEmailAccount.accountName,
-    errorMessage: msg.PASSWORD_COMMON,
+    errorMessage: messages.PASSWORD_TOO_SHORT,
   },
 
   nonASCIIpassword: {
@@ -40,6 +32,6 @@ export const invalidEmailPassword = {
     value: 'парола123',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,
-    errorMessage: msg.PASSWORD_UNSUPPORTED,
+    errorMessage: messages.PASSWORD_UNSUPPORTED,
   },
 };

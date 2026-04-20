@@ -18,13 +18,6 @@ export class AppPage {
     );
   }
 
-  async clearStorage(): Promise<void> {
-    await this.page.goto('/');
-    await this.page.evaluate(() => {
-      localStorage.clear();
-    });
-  }
-
   async open(): Promise<void> {
     await this.page.goto(`/?demoToken=${demoToken}`);
     await expect(this.page).toHaveTitle(/QA Automation Tools/);

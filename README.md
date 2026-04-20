@@ -2,7 +2,7 @@
 
 [![Playwright Tests](https://github.com/petromirkolev/test-automation-task/actions/workflows/playwright.yml/badge.svg)](https://github.com/petromirkolev/test-automation-task/actions/workflows/playwright.yml)
 
-This repository contains a Playwright + TypeScript automation solution for the demo hosting services web application provided in the assignment.
+This repository contains a Playwright & TypeScript automation solution for the demo hosting services web application provided in the assignment.
 
 It covers the 2 required scenarios from the task and includes a small set of focused additional validation checks around the same features.
 
@@ -17,7 +17,7 @@ It covers the 2 required scenarios from the task and includes a small set of foc
 - `tests/email-forwarders.spec.ts` - Email forwarders scenarios
 - `pages/` - Page Object Models
 - `fixtures/` - Playwright fixtures for page objects
-- `utils/` - Shared constants and helpers
+- `utils/` - Shared messages
 - `test-data/` - Test input data
 - `test-plan.md` - Test plan and covered scenarios
 
@@ -28,7 +28,6 @@ It covers the 2 required scenarios from the task and includes a small set of foc
 - **Stable selector strategy** is preferred, using reliable `data-e2e` locators instead of DOM-dependent selectors
 - **Environment variables** are used for base URL and demo token configuration instead of hard-coded values
 - **Additional validation checks** were kept limited to the same feature area to avoid overscoping
-- **Local storage cleanup** is used before app entry to avoid state leakage between tests
 
 ## Prerequisites
 
@@ -119,7 +118,7 @@ The project uses environment variables for configuration instead of hard-coded v
 - The application requires a `demoToken` query parameter in the URL
 - The token is loaded from the `DEMO_JWT_TOKEN` environment variable
 - The target URL is loaded from the `BASE_URL` environment variable
-- Local storage is cleared before application entry to avoid state leakage between tests
+- Each test gets a fresh browser context by default
 - The suite is configured to run across Chromium, Firefox, and WebKit
 
 ## Required task coverage
@@ -167,6 +166,5 @@ In addition to the 2 required scenarios, the suite includes a few focused valida
 ## Challenges and decisions
 
 - The forwarder recipient field is a custom dropdown, not a plain input, so tests open the control first and then fill the inner input.
-- The app stores demo data in `localStorage`, so tests clear browser state before app entry to avoid state leakage between scenarios.
 - Some `data-e2e` values are reused across the UI, so selectors were kept stable by scoping locators carefully.
 - Additional coverage was kept intentionally narrow and close to the assignment scope to avoid overscoping.

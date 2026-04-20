@@ -1,6 +1,5 @@
 import { test } from '../fixtures/app-fixtures';
-import { help } from '../utils/helpers';
-import { msg } from '../utils/constants';
+import { messages } from '../utils/messages';
 import {
   invalidEmailName,
   invalidEmailPassword,
@@ -8,11 +7,11 @@ import {
 } from '../test-data';
 
 test.describe('Automation Test Suite - Email Accounts page', () => {
-  let name: string;
+  let generatedAccountName: string;
 
-  test.beforeEach(async ({ appPage }) => {
-    name = help.createUniqueName();
-    await appPage.clearStorage();
+  test.beforeEach(async ({ appPage }, testInfo) => {
+    generatedAccountName = `acc_${testInfo.project.name}_${Date.now()}`;
+
     await appPage.open();
     await appPage.goToEmailAccounts();
   });
@@ -54,15 +53,27 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
   test('Create duplicate email account is rejected', async ({
     emailAccountsPage,
   }) => {
-    const { selectedDomain } = validEmailAccount;
+    const { selectedDomain, expectedSuccessMessage } = validEmailAccount;
 
     await test.step('Prepare existing account', async () => {
-      await help.createExistingAccount(selectedDomain, name, emailAccountsPage);
+      await emailAccountsPage.createAccount(
+        selectedDomain,
+        generatedAccountName,
+      );
+      await emailAccountsPage.expectSuccessMessage(
+        expectedSuccessMessage(generatedAccountName, selectedDomain),
+      );
+      await emailAccountsPage.clickBackButton();
     });
 
     await test.step('Try to create the same account again', async () => {
-      await emailAccountsPage.createAccount(selectedDomain, name);
-      await emailAccountsPage.expectNameErrorMessage(msg.EMAIL_ACCOUNT_EXISTS);
+      await emailAccountsPage.createAccount(
+        selectedDomain,
+        generatedAccountName,
+      );
+      await emailAccountsPage.expectNameErrorMessage(
+        messages.EMAIL_ACCOUNT_EXISTS,
+      );
     });
   });
 

@@ -37,7 +37,11 @@ export class EmailBasePage extends AppPage {
   }
 
   async selectDomain(selectedDomain: string): Promise<void> {
-    await this.domainOptions.filter({ hasText: selectedDomain }).click();
+    const option = this.page
+      .getByTestId('dropdown-options')
+      .getByRole('option', { name: selectedDomain, exact: true });
+    await expect(option).toHaveCount(1);
+    await option.click();
   }
 
   async expectSuccessMessage(text: string): Promise<void> {

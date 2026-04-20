@@ -54,18 +54,18 @@ export class EmailForwardersPage extends EmailBasePage {
 
   async createForwarder(
     selectedDomain?: string,
-    from?: string,
-    to?: string,
+    fromEmail?: string,
+    toEmail?: string,
   ): Promise<void> {
     if (selectedDomain !== undefined) {
       await this.openDomainDropdown();
       await this.selectDomain(selectedDomain);
     }
-    if (from !== undefined) {
-      await this.fillForwardFromName(from);
+    if (fromEmail !== undefined) {
+      await this.fillForwardFromName(fromEmail);
     }
-    if (to !== undefined) {
-      await this.fillForwardToAccount(to);
+    if (toEmail !== undefined) {
+      await this.fillForwardToAccount(toEmail);
     }
     await this.clickCreateEmailForwarderButton();
   }
