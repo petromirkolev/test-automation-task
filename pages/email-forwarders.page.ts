@@ -34,7 +34,8 @@ export class EmailForwardersPage extends EmailBasePage {
   }
 
   async fillForwardToAccount(input: string): Promise<void> {
-    // The destination field is a dropdown so the inner input becomes usable only after clicking on it
+    /** The destination field is a dropdown so the inner input
+     ** becomes usable only after clicking on it */
     await this.forwardToDropdown.click();
     await this.forwardToInput.fill(input);
   }

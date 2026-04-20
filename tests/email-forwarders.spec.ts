@@ -1,12 +1,14 @@
 import { test } from '../fixtures/app-fixtures';
-import { validEmailForwarder } from '../test-data/valid-email-forwarder';
+import { msg } from '../utils/constants';
 import {
+  invalidEmailName,
   invalidEmailAddress,
-  invalidEmailname,
-} from '../test-data/invalid-email-account';
+  validEmailForwarder,
+} from '../test-data';
 
 test.describe('Automation Test Suite - Email Forwarders page', () => {
   test.beforeEach(async ({ appPage }) => {
+    await appPage.clearStorage();
     await appPage.open();
     await appPage.goToEmailForwarders();
   });
@@ -27,9 +29,7 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     });
 
     await test.step('Verify required field error message', async () => {
-      await emailForwardersPage.expectForwardFromFieldError(
-        data.expectedErrorMessage,
-      );
+      await emailForwardersPage.expectForwardFromFieldError(msg.REQUIRED_FIELD);
     });
   });
 
@@ -47,19 +47,20 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     });
 
     await test.step('Verify successful email forwarder creation', async () => {
-      await emailForwardersPage.expectSuccessMessage(data.fromName);
+      await emailForwardersPage.expectSuccessMessage(
+        data.expectedSuccessMessage(data.fromName, data.selectedDomain),
+      );
     });
   });
 
   test.describe('Create email forwarder with invalid from name', () => {
-    for (const key of Object.keys(invalidEmailname) as Array<
-      keyof typeof invalidEmailname
+    for (const key of Object.keys(invalidEmailName) as Array<
+      keyof typeof invalidEmailName
     >) {
       const { value, selectedDomain, testDescription, errorMessage } =
-        invalidEmailname[key];
+        invalidEmailName[key];
       test(testDescription, async ({ emailForwardersPage }) => {
         await emailForwardersPage.createForwarder(selectedDomain, value);
-
         await emailForwardersPage.expectForwardFromFieldError(errorMessage);
       });
     }
@@ -77,7 +78,6 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
           validEmailForwarder.fromName,
           value,
         );
-
         await emailForwardersPage.expectForwardToFieldError(errorMessage);
       });
     }

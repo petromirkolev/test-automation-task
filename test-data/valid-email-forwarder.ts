@@ -1,4 +1,4 @@
-import { domains } from './domains-list';
+import { domains } from './domains';
 import { validEmailAccount } from './valid-email-account';
 
 export const validEmailForwarder = {
@@ -6,5 +6,6 @@ export const validEmailForwarder = {
   toEmailAddress: 'test_account@test.com',
   selectedDomain: domains.selectedDomain,
   expectedDomains: domains.expectedDomains,
-  expectedErrorMessage: 'Required field',
+  expectedSuccessMessage: (fromName: string, selectedDomain: string) =>
+    `Forward rule for ${fromName}@${selectedDomain} is created`,
 };

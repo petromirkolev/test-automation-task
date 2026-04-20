@@ -1,4 +1,4 @@
-import { Page, Locator, test, expect } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { EmailBasePage } from './email-base.page';
 
 export class EmailAccountsPage extends EmailBasePage {

@@ -1,15 +1,18 @@
 import { test } from '../fixtures/app-fixtures';
-import { invalidEmailname } from '../test-data/invalid-email-account';
-import { invalidEmailpassword } from '../test-data/invalid-password';
-import { createExistingAccount, uniqueName } from '../utils/helpers';
+import { help } from '../utils/helpers';
 import { msg } from '../utils/constants';
-import { validEmailAccount } from '../test-data/valid-email-account';
+import {
+  invalidEmailName,
+  invalidEmailPassword,
+  validEmailAccount,
+} from '../test-data';
 
 test.describe('Automation Test Suite - Email Accounts page', () => {
   let name: string;
 
   test.beforeEach(async ({ appPage }) => {
-    name = uniqueName();
+    name = help.createUniqueName();
+    await appPage.clearStorage();
     await appPage.open();
     await appPage.goToEmailAccounts();
   });
@@ -46,23 +49,25 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
     const data = validEmailAccount;
 
     await test.step('Prepare existing account', async () => {
-      await createExistingAccount(data.selectedDomain, name, emailAccountsPage);
+      await help.createExistingAccount(
+        data.selectedDomain,
+        name,
+        emailAccountsPage,
+      );
     });
 
     await test.step('Try to create the same account again', async () => {
       await emailAccountsPage.createAccount(data.selectedDomain, name);
-      await emailAccountsPage.expectNameErrorMessage(
-        msg.EMAIL_ACCOUNT_EXISTS_MESSAGE,
-      );
+      await emailAccountsPage.expectNameErrorMessage(msg.EMAIL_ACCOUNT_EXISTS);
     });
   });
 
   test.describe('Create email account with invalid name', () => {
-    for (const key of Object.keys(invalidEmailname) as Array<
-      keyof typeof invalidEmailname
+    for (const key of Object.keys(invalidEmailName) as Array<
+      keyof typeof invalidEmailName
     >) {
       const { value, selectedDomain, testDescription, errorMessage } =
-        invalidEmailname[key];
+        invalidEmailName[key];
       test(testDescription, async ({ emailAccountsPage }) => {
         await emailAccountsPage.createAccount(selectedDomain, value);
         await emailAccountsPage.expectNameErrorMessage(errorMessage);
@@ -71,8 +76,8 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
   });
 
   test.describe('Create email account with invalid password', () => {
-    for (const key of Object.keys(invalidEmailpassword) as Array<
-      keyof typeof invalidEmailpassword
+    for (const key of Object.keys(invalidEmailPassword) as Array<
+      keyof typeof invalidEmailPassword
     >) {
       const {
         accountName,
@@ -80,7 +85,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
         value,
         testDescription,
         errorMessage,
-      } = invalidEmailpassword[key];
+      } = invalidEmailPassword[key];
       test(testDescription, async ({ emailAccountsPage }) => {
         await emailAccountsPage.createAccount(
           selectedDomain,

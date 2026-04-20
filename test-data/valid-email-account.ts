@@ -1,4 +1,4 @@
-import { domains } from './domains-list';
+import { domains } from './domains';
 
 export const validEmailAccount = {
   accountName: 'test_account',

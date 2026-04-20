@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { defineConfig, devices } from '@playwright/test';
 
-dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config({ path: path.resolve(__dirname, '.env'), quiet: true });
 
 if (!process.env.BASE_URL) {
   throw new Error('Missing BASE_URL; Copy .env.example to .env');

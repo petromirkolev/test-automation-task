@@ -4,7 +4,7 @@
 
 This repository contains a Playwright + TypeScript automation solution for the demo hosting services web application provided in the assignment.
 
-It covers the 2 required scenarios from the task and includes a small amount of focused additional validation coverage around the same features.
+It covers the 2 required scenarios from the task and includes a small set of focused additional validation coverage around the same features.
 
 ## Tech stack
 
@@ -13,10 +13,9 @@ It covers the 2 required scenarios from the task and includes a small amount of 
 
 ## Project structure
 
-- `tests/app.spec.ts` - Basic app access checks
-- `tests/email-accounts.spec.ts` - Email Accounts scenarios
-- `tests/email-forwarders.spec.ts` - Email Forwarders scenarios
-- `tests/token-validation.spec.ts` - Demo token payload validation checks
+- `tests/app.spec.ts` - Basic application access check
+- `tests/email-accounts.spec.ts` - Email accounts scenarios
+- `tests/email-forwarders.spec.ts` - Email forwarders scenarios
 - `pages/` - Page Object Models
 - `fixtures/` - Playwright fixtures for page objects
 - `utils/` - Shared constants and helpers
@@ -29,8 +28,13 @@ It covers the 2 required scenarios from the task and includes a small amount of 
 - **Playwright fixtures** are used to provide page objects cleanly to tests and reduce repeated setup
 - **Stable selector strategy** is preferred, using reliable "data-e2e" locators instead of brittle DOM-dependent selectors
 - **Environment variables** are used for base URL and demo token configuration instead of hard-coded values
-- **Focused additional coverage** was added only around the same core assignment features, to show validation thinking without overscoping
-- **Clean browser context** is used to avoid state leakage between tests
+- **Additional validation checks** were kept limited to the same feature area to avoid overscoping
+- **Local storage cleanup** is used to avoid state leakage between tests
+
+## Prerequisites
+
+- Node.js 20.x, 22.x, or 24.x
+- npm (bundled with Node.js)
 
 ## Setup
 
@@ -48,7 +52,7 @@ npm install
 npx playwright install
 ```
 
-"npx playwright install" is required at least once to download browser binaries.
+`npx playwright install` is required at least once to download browser binaries.
 
 3. Create a local environment file
 
@@ -111,12 +115,12 @@ The project uses environment variables for configuration instead of hard-coded v
 - `.env` is intended for local use only and should not be committed
 - If a required variable is missing, the test run fails early with a clear error message
 
-## Notes
+## Execution notes
 
 - The application requires a `demoToken` query parameter in the URL.
 - The token is loaded from the `DEMO_JWT_TOKEN` environment variable
 - The target URL is loaded from the `BASE_URL` environment variable
-- Test execution uses a clean browser context to avoid state leakage from localStorage
+- Local storage is cleared before application entry to avoid state leakage between tests.
 - The suite is configured to run across Chromium, Firefox, and WebKit
 
 ## Required task coverage
@@ -138,7 +142,7 @@ Covered flow:
 - Verify account creation success message
 - Verify the created account appears in the email accounts list
 
-### TC#2 Add an empty email Forwarder
+### TC#2 Add an empty email forwarder
 
 Implemented in `tests/email-forwarders.spec.ts`
 
@@ -157,8 +161,15 @@ Covered flow:
 In addition to the 2 required scenarios, the suite includes a few focused validation checks around the same features, such as:
 
 - App access checks
-- Demo token payload validation
+- Basic demo token payload checks
 - Duplicate email account validation
 - Invalid email account name checks
 - Invalid password checks
 - Additional forwarder validation checks
+
+## Challenges and decisions
+
+- The forwarder recipient field is a custom dropdown, not a plain input, so tests open the control first and then fill the inner input.
+- The app stores demo data in `localStorage`, so tests clear browser state before app entry to avoid state leakage between scenarios.
+- Some `data-e2e` values are reused across the UI, so selectors were kept stable by scoping locators carefully.
+- Additional coverage was kept intentionally narrow and close to the assignment scope to avoid overscoping.

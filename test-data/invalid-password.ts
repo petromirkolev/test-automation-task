@@ -1,22 +1,22 @@
 import { msg } from '../utils/constants';
-import { domains } from './domains-list';
+import { domains } from './domains';
 import { validEmailAccount } from './valid-email-account';
 
-export const invalidEmailpassword = {
+export const invalidEmailPassword = {
   emptyPassword: {
     testDescription: 'Invalid empty password',
     value: '',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,
-    errorMessage: msg.REQUIRED_FIELD_MESSAGE,
+    errorMessage: msg.REQUIRED_FIELD,
   },
 
   whiteSpacedPassword: {
-    testDescription: 'Invalid white-spaced password',
+    testDescription: 'Invalid password with white spaces',
     value: '      ',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,
-    errorMessage: msg.INVALID_PASS_TOO_SHORT,
+    errorMessage: msg.PASSWORD_TOO_SHORT,
   },
 
   shortPassword: {
@@ -24,7 +24,7 @@ export const invalidEmailpassword = {
     value: 'T3$ting',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,
-    errorMessage: msg.INVALID_PASS_TOO_SHORT,
+    errorMessage: msg.PASSWORD_TOO_SHORT,
   },
 
   repeatedPassword: {
@@ -32,7 +32,7 @@ export const invalidEmailpassword = {
     value: 'T3$tingT3$tingT3$ting',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,
-    errorMessage: msg.INVALID_REPEAT_PASS,
+    errorMessage: msg.PASSWORD_REPEATED,
   },
 
   commonPassword: {
@@ -40,7 +40,7 @@ export const invalidEmailpassword = {
     value: 'adminpass',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,
-    errorMessage: msg.INVALID_COMMON_PASS,
+    errorMessage: msg.PASSWORD_COMMON,
   },
 
   nonASCIIpassword: {
@@ -48,6 +48,6 @@ export const invalidEmailpassword = {
     value: 'парола123',
     selectedDomain: domains.selectedDomain,
     accountName: validEmailAccount.accountName,
-    errorMessage: msg.INVALID_UNSUPPORTED_PASS,
+    errorMessage: msg.PASSWORD_UNSUPPORTED,
   },
 };
