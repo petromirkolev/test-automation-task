@@ -2,9 +2,7 @@
 
 [![Playwright Tests](https://github.com/petromirkolev/test-automation-task/actions/workflows/playwright.yml/badge.svg)](https://github.com/petromirkolev/test-automation-task/actions/workflows/playwright.yml)
 
-This repository contains a Playwright & TypeScript automation solution for the demo hosting services web application provided in the assignment.
-
-It covers the 2 required scenarios from the task and includes a small set of focused additional validation checks around the same features.
+This repository contains a Playwright & TypeScript automation solution for the demo hosting services web application provided in the assignment. It covers the 2 required scenarios from the task and includes a small set of focused additional validation checks around the same features.
 
 ## Tech stack
 
@@ -34,7 +32,17 @@ It covers the 2 required scenarios from the task and includes a small set of foc
 - Node.js 20.x, 22.x, or 24.x
 - npm (bundled with Node.js)
 
-## Setup
+## Quick setup
+
+```bash
+git clone https://github.com/petromirkolev/test-automation-task.git
+cd test-automation-task
+npm run setup
+```
+
+This installs dependencies, installs Playwright browsers, and creates .env from .env.example if needed.
+
+## Manual setup
 
 1. Clone the repository
 
@@ -47,6 +55,9 @@ cd test-automation-task
 
 ```bash
 npm install
+```
+
+```bash
 npx playwright install
 ```
 
@@ -60,7 +71,7 @@ Copy `.env.example` to `.env`
 cp .env.example .env
 ```
 
-4. Run tests
+## Run tests
 
 ### Run only the 2 assignment-required test cases (TC#1 and TC#2):
 

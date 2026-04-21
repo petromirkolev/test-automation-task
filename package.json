@@ -4,6 +4,7 @@
   "description": "Demo web application test automation task",
   "main": "index.js",
   "scripts": {
+    "setup": "npm install && npx playwright install && cp .env.example .env",
     "test": "playwright test",
     "test:required": "playwright test -g @required",
     "test:ui": "playwright test --ui",
