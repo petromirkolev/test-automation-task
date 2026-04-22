@@ -9,11 +9,8 @@ import {
 test.describe('Automation Test Suite - Email Accounts page', () => {
   let generatedAccountName: string;
 
-  test.beforeEach(async ({ appPage }, testInfo) => {
+  test.beforeEach(async ({}, testInfo) => {
     generatedAccountName = `acc_${testInfo.project.name}_${Date.now()}`;
-
-    await appPage.open();
-    await appPage.goToEmailAccounts();
   });
 
   test('Create email account with valid input succeeds @required', async ({

@@ -14,11 +14,15 @@ export const test = base.extend<AppFixtures>({
     await use(new AppPage(page));
   },
 
-  emailAccountsPage: async ({ page }, use) => {
+  emailAccountsPage: async ({ appPage, page }, use) => {
+    await appPage.open();
+    await appPage.goToEmailAccounts();
     await use(new EmailAccountsPage(page));
   },
 
-  emailForwardersPage: async ({ page }, use) => {
+  emailForwardersPage: async ({ appPage, page }, use) => {
+    await appPage.open();
+    await appPage.goToEmailForwarders();
     await use(new EmailForwardersPage(page));
   },
 });

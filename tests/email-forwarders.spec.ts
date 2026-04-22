@@ -7,11 +7,6 @@ import {
 } from '../test-data';
 
 test.describe('Automation Test Suite - Email Forwarders page', () => {
-  test.beforeEach(async ({ appPage }) => {
-    await appPage.open();
-    await appPage.goToEmailForwarders();
-  });
-
   test('Add empty email forwarder and verify required field error @required', async ({
     emailForwardersPage,
   }) => {
