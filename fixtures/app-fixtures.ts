@@ -5,6 +5,7 @@ import { EmailForwardersPage } from '../pages/email-forwarders.page';
 
 type AppFixtures = {
   appPage: AppPage;
+  generatedAccountName: string;
   emailAccountsPage: EmailAccountsPage;
   emailForwardersPage: EmailForwardersPage;
 };
@@ -12,6 +13,10 @@ type AppFixtures = {
 export const test = base.extend<AppFixtures>({
   appPage: async ({ page }, use) => {
     await use(new AppPage(page));
+  },
+
+  generatedAccountName: async ({}, use, testInfo) => {
+    await use(`acc_${testInfo.project.name}_${Date.now()}`);
   },
 
   emailAccountsPage: async ({ appPage, page }, use) => {

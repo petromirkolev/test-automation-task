@@ -7,12 +7,6 @@ import {
 } from '../test-data';
 
 test.describe('Automation Test Suite - Email Accounts page', () => {
-  let generatedAccountName: string;
-
-  test.beforeEach(async ({}, testInfo) => {
-    generatedAccountName = `acc_${testInfo.project.name}_${Date.now()}`;
-  });
-
   test('Create email account with valid input succeeds @required', async ({
     emailAccountsPage,
   }) => {
@@ -48,6 +42,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
   });
 
   test('Create duplicate email account is rejected', async ({
+    generatedAccountName,
     emailAccountsPage,
   }) => {
     const { selectedDomain, expectedSuccessMessage } = validEmailAccount;
