@@ -24,9 +24,14 @@
   },
   "homepage": "https://github.com/petromirkolev/test-automation-task#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.59.1",
     "@types/node": "^25.6.0",
-    "playwright": "^1.59.1"
+    "eslint": "^10.2.1",
+    "globals": "^17.5.0",
+    "jiti": "^2.6.1",
+    "playwright": "^1.59.1",
+    "typescript-eslint": "^8.59.0"
   },
   "dependencies": {
     "dotenv": "^17.4.2"

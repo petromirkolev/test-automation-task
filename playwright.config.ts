@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import path from 'path';
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices, firefox } from '@playwright/test';
 
 dotenv.config({ path: path.resolve(__dirname, '.env'), quiet: true });
 
