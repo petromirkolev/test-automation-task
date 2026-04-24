@@ -15,7 +15,7 @@ export const test = base.extend<AppFixtures>({
     await use(new AppPage(page));
   },
 
-  generatedAccountName: async ({}, use, testInfo) => {
+  generatedAccountName: async ({ page: _page }, use, testInfo) => {
     await use(`acc_${testInfo.project.name}_${Date.now()}`);
   },
 
