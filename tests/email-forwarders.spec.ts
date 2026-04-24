@@ -56,6 +56,7 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     >) {
       const { value, selectedDomain, testDescription, errorMessage } =
         invalidEmailName[key];
+
       test(testDescription, async ({ emailForwardersPage }) => {
         await emailForwardersPage.createForwarder(selectedDomain, value);
         await emailForwardersPage.expectForwardFromFieldError(errorMessage);
@@ -69,6 +70,7 @@ test.describe('Automation Test Suite - Email Forwarders page', () => {
     >) {
       const { value, selectedDomain, testDescription, errorMessage } =
         invalidEmailAddress[key];
+
       test(testDescription, async ({ emailForwardersPage }) => {
         await emailForwardersPage.createForwarder(
           selectedDomain,

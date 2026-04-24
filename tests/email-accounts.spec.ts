@@ -75,6 +75,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
     >) {
       const { value, selectedDomain, testDescription, errorMessage } =
         invalidEmailName[key];
+
       test(testDescription, async ({ emailAccountsPage }) => {
         await emailAccountsPage.createAccount(selectedDomain, value);
         await emailAccountsPage.expectNameErrorMessage(errorMessage);
@@ -93,6 +94,7 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
         testDescription,
         errorMessage,
       } = invalidEmailPassword[key];
+
       test(testDescription, async ({ emailAccountsPage }) => {
         await emailAccountsPage.createAccount(
           selectedDomain,
