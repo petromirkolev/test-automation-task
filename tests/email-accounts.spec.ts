@@ -42,31 +42,16 @@ test.describe('Automation Test Suite - Email Accounts page', () => {
   });
 
   test('Create duplicate email account is rejected', async ({
-    generatedAccountName,
+    createdEmailAccount,
     emailAccountsPage,
   }) => {
-    const { selectedDomain, expectedSuccessMessage } = validEmailAccount;
-
-    await test.step('Prepare existing account', async () => {
-      await emailAccountsPage.createAccount(
-        selectedDomain,
-        generatedAccountName,
-      );
-      await emailAccountsPage.expectSuccessMessage(
-        expectedSuccessMessage(generatedAccountName, selectedDomain),
-      );
-      await emailAccountsPage.clickBackButton();
-    });
-
-    await test.step('Try to create the same account again', async () => {
-      await emailAccountsPage.createAccount(
-        selectedDomain,
-        generatedAccountName,
-      );
-      await emailAccountsPage.expectNameErrorMessage(
-        messages.EMAIL_ACCOUNT_EXISTS,
-      );
-    });
+    await emailAccountsPage.createAccount(
+      validEmailAccount.selectedDomain,
+      createdEmailAccount,
+    );
+    await emailAccountsPage.expectNameErrorMessage(
+      messages.EMAIL_ACCOUNT_EXISTS,
+    );
   });
 
   test.describe('Create email account with invalid name', () => {

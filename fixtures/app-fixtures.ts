@@ -2,10 +2,12 @@ import { test as base, expect } from '@playwright/test';
 import { AppPage } from '../pages/app-page';
 import { EmailAccountsPage } from '../pages/email-accounts.page';
 import { EmailForwardersPage } from '../pages/email-forwarders.page';
+import { validEmailAccount } from '../test-data';
 
 type AppFixtures = {
   appPage: AppPage;
   generatedAccountName: string;
+  createdEmailAccount: string;
   emailAccountsPage: EmailAccountsPage;
   emailForwardersPage: EmailForwardersPage;
 };
@@ -18,6 +20,27 @@ export const test = base.extend<AppFixtures>({
   generatedAccountName: async ({ page }, use, testInfo) => {
     void page;
     await use(`acc_${testInfo.project.name}_${Date.now()}`);
+  },
+
+  createdEmailAccount: async (
+    { appPage, emailAccountsPage, generatedAccountName },
+    use,
+  ) => {
+    await appPage.open();
+    await appPage.goToEmailAccounts();
+    await emailAccountsPage.createAccount(
+      validEmailAccount.selectedDomain,
+      generatedAccountName,
+    );
+    await emailAccountsPage.expectSuccessMessage(
+      validEmailAccount.expectedSuccessMessage(
+        generatedAccountName,
+        validEmailAccount.selectedDomain,
+      ),
+    );
+
+    await emailAccountsPage.clickBackButton();
+    await use(generatedAccountName);
   },
 
   emailAccountsPage: async ({ appPage, page }, use) => {
